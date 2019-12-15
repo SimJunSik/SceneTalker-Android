@@ -51,8 +51,6 @@ public class ChattingActivity extends AppCompatActivity {
     private int lottie_sweet_potato_count = 0;
     private int lottie_saida_count = 0;
 
-    Chattingroom_Exit_Dialog chattingroom_exit_dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
