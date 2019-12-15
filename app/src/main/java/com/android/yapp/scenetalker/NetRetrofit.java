@@ -14,7 +14,7 @@ public class NetRetrofit {
     public static RetrofitService getInstance() {
         Retrofit retrofit;
         //String baseUrl = "http://2955713f.ngrok.io/";
-        String baseUrl = "http://18a14d71.ngrok.io/";
+        String baseUrl = "http://15.164.65.235/";
 
         if(!Utils.user_key.equals("")) {
             OkHttpClient client = new OkHttpClient.Builder()

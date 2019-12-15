@@ -32,7 +32,7 @@ public class WebSocket{
         URI uri;
         Log.i("URI",user_id);
         try {
-            uri = new URI("ws://18a14d71.ngrok.io/ws/chat/" + drama_id + "/" + episode + "/" + user_id + "/");
+            uri = new URI("ws://15.164.65.235/ws/chat/" + drama_id + "/" + episode + "/" + user_id + "/");
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("에러","URL 에러");
