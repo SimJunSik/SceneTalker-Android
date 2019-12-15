@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="40dp">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/scene_talker_title_img"
+            android:id="@+id/top_img"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_apptitle"
+            android:id="@+id/top_title"
+            android:textColor="@color/red"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+
+            app:layout_constraintLeft_toRightOf="@id/top_img"
+            app:layout_constraintTop_toTopOf="@id/top_img"
+            app:layout_constraintBottom_toBottomOf="@id/top_img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_first_title"
+            android:id="@+id/first_title"
+            android:textColor="@color/red"
+            android:textSize="24sp"
+            android:layout_marginTop="55dp"
+
+            app:layout_constraintTop_toBottomOf="@id/top_img"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_second_title"
+            android:id="@+id/second_title"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintTop_toBottomOf="@id/first_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:id="@+id/idTitle"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="60dp"
+
+            app:layout_constraintTop_toBottomOf="@id/second_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID를 입력해주세요."
+            android:id="@+id/idEdit"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="pom2398@gmail.com"
+            android:layout_marginRight="50dp"
+
+            app:layout_constraintTop_toBottomOf="@id/idTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:id="@+id/passwordTitle"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+
+            app:layout_constraintTop_toBottomOf="@id/idEdit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password를 입력해주세요."
+            android:id="@+id/passwordEdit"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="1q2w3e4r!"
+            android:layout_marginRight="50dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+
+            app:layout_constraintTop_toBottomOf="@id/passwordTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:text="로그인"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/bg_login_btn"
+            android:onClick="onClickLogin"
+
+            app:layout_constraintTop_toBottomOf="@id/passwordEdit"
+            app:layout_constraintLeft_toLeftOf="@id/passwordEdit"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="처음 오셨다면?"
+            android:id="@+id/bottomTitle"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="5dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/passwordEdit"
+            app:layout_constraintRight_toLeftOf="@id/bottomSecondTitle"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:id="@+id/bottomSecondTitle"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:onClick="onClickSignUp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/bottomTitle"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

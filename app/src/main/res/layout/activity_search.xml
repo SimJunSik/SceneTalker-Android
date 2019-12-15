@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/round"
+        >
+
+        <ImageButton
+            android:id="@+id/backtofeed"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:background="#00ff0000"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"
+            />
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/noborder"
+            android:hint="내용을 검색해보세요"
+            android:padding="8dp"
+            android:singleLine="true"
+            />
+
+    </LinearLayout>
+    <fragment
+        android:id="@+id/fragment_place"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.android.yapp.scenetalker.Fragment_Search2"
+        tools:layout="@layout/fragment_search2" />
+
+</LinearLayout>

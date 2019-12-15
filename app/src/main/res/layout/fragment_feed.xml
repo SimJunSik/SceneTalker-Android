@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/shadow"
+    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="340dp"
+        android:layout_height="27dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:progressTint="#ff4665"
+        android:max="100" />
+
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/episode_result"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/sweet_potato" />
+
+
+
+    <TextView android:layout_height="19dp"
+        android:layout_width="67dp"
+        android:textSize="16sp"
+        android:id="@+id/episode_result"
+        android:textColor="#2b2b2b"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="15dp"
+        android:text="고구마지수"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/episode_result"/>
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/episode_result"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-1dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/cider" />
+
+    <TextView
+        android:id="@+id/cider_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/potato_percent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="74dp"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/potato_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="60dp"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+
+
+
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="15dp"
+        android:text="사이다지수"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/episode_result"
+        android:layout_marginEnd="70dp"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

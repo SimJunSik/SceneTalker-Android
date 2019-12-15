@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_dialog">
+    <TextView
+        android:id="@+id/dialog_profile_img_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프로필 이미지 변경"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="#fff"/>
+    <TextView
+        android:id="@+id/dialog_profile_img_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginVertical="20dp"
+        android:text="프로필 이미지 삭제"
+        android:textSize="20dp" />
+</LinearLayout>

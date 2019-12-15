@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true">
+
+
+    <TextView
+        android:id="@+id/drama_title"
+        android:layout_width="290dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18dp" />
+
+    <ImageButton
+        android:id="@+id/feed_search_btn"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="49dp"
+        android:background="#00ff0000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/search" />
+
+    <ImageButton
+        android:id="@+id/feed_close_btn"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:background="#00ff0000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/x" />
+
+</RelativeLayout>
+
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerview3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginStart="0dp"
+    android:layout_marginTop="48dp" />
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/write_btn"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="40dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    app:borderWidth="0dp"
+    app:fabSize="mini"
+    android:backgroundTint="#FF4764"
+    android:scaleType="center"
+    android:src="@drawable/edit" />
+</RelativeLayout>

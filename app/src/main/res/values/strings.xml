@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SceneTalker</string>
+
+    <string name="main_first_title">지금 메로나님이 좋아하는</string>
+    <string name="main_second_title">%1s가 방영중이에요!</string>
+
+    <string name="main_onair_title">OnAir</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_apptitle">씬토커</string>
+    <string name="login_first_title">반가워요:)</string>
+    <string name="login_second_title">드라마에 대해 같이 얘기해요!</string>
+</resources>

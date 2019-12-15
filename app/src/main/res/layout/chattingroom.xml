@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/chatting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="배가본드 실시간 톡방"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#4C4C4C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/closebtn"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:background="#00ff0000"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/x" />
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview2"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/count"
+        android:layout_above="@+id/edit_layout"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:id="@+id/edit_layout"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/Edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#CCCCCC"
+            android:background="@null"
+            android:layout_weight="1"
+            android:hint="드라마에 대해 얘기하세요!"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chattingbtn"
+            android:background="#00000000"
+            android:text="전송"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/count"
+        android:layout_below="@+id/chatting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_marginStart="250dp"
+            android:layout_width="22dp"
+            android:layout_height="27dp"
+            android:src="@drawable/count_sp"
+            />
+
+        <TextView
+            android:id="@+id/sweet_potato_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp" />
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/count_cider"
+            android:layout_width="22dp"
+            android:layout_height="27dp"
+            />
+
+        <TextView
+            android:id="@+id/soda_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sweetpotato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sweet_potato"
+        android:backgroundTint="#FF4764"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="center"
+        app:fabSize="mini"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cider"
+        android:backgroundTint="#FF4764"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="center"
+        app:fabSize="mini"
+        />
+
+    <!--  sweet_potato lotties   -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_sweet_potato1"
+        android:layout_marginRight="65dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_sweet_potato2"
+        android:layout_marginRight="65dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_sweet_potato3"
+        android:layout_marginRight="65dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_sweet_potato4"
+        android:layout_marginRight="65dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_sweet_potato5"
+        android:layout_marginRight="65dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <!--  saida lotties   -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_saida1"
+        android:layout_marginRight="3dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_saida2"
+        android:layout_marginRight="3dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_saida3"
+        android:layout_marginRight="3dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_saida4"
+        android:layout_marginRight="3dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/lottie_action_saida5"
+        android:layout_marginRight="3dp"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+
+    <!--  pang lottie  -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:id="@+id/lottie_action_pang"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/sweetpotato"
+        android:layout_marginBottom="150dp"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="false"/>
+    <!--#669933, #669900-->
+
+
+</RelativeLayout>

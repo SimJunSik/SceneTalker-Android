@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="30dp">
+
+        <!--<Button-->
+            <!--android:layout_width="11dp"-->
+            <!--android:layout_height="18.5dp"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:background="@drawable/back_btn"-->
+            <!--android:id="@+id/back_img"-->
+            <!--android:onClick="onClickBack"-->
+
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+        <ImageButton
+            android:layout_width="11dp"
+            android:layout_height="18.5dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/back_btn"
+            android:id="@+id/signup_back_btn"
+            android:onClick="onClickBack"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/signup_first_title"
+            android:layout_width="208dp"
+            android:layout_height="29dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="115dp"
+            android:text="새로 오신걸 환영해요:)"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/signup_second_title"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginRight="150dp"
+            android:textStyle="bold"
+            android:text="좋아하는 드라마와 관련된 사진을 등록해보세요!"
+            android:textColor="#636363"
+            android:textSize="14sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_title" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="133dp"
+
+            android:src="@color/gray"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/profileAddImg"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/modify_btn"
+            android:onClick="onClickModifyProfile"
+
+            app:layout_constraintRight_toRightOf="@id/profileImg"
+            app:layout_constraintBottom_toBottomOf="@id/profileImg"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:id="@+id/idTitle"
+            android:layout_marginStart="36dp"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="40dp"
+
+            app:layout_constraintTop_toBottomOf="@id/profileImg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/idEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="77dp"
+            android:hint="Email을 입력해주세요."
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@color/black"
+
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idTitle" />
+
+        <TextView
+            android:layout_marginStart="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:id="@+id/nameTitle"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintTop_toBottomOf="@id/idEdit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="77dp"
+            android:layout_marginStart="36dp"
+            android:hint="이름를 입력해주세요."
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:layout_marginStart="36dp"
+            android:id="@+id/passwordTitle"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintTop_toBottomOf="@id/nameEdit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/passwordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="77dp"
+            android:layout_marginStart="36dp"
+            android:hint="Password를 입력해주세요."
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:text="Password 확인"
+            android:id="@+id/passwordCheckTitle"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+
+            app:layout_constraintTop_toBottomOf="@id/passwordEdit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="77dp"
+            android:layout_marginStart="36dp"
+            android:hint="Password를 다시 입력해주세요."
+            android:id="@+id/passwordCheckEdit"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:layout_marginRight="50dp"
+
+            app:layout_constraintTop_toBottomOf="@id/passwordCheckTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="186dp"
+            android:background="@drawable/bg_login_btn"
+            android:onClick="onClickSignUp"
+            android:text="회원가입"
+
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordCheckEdit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
