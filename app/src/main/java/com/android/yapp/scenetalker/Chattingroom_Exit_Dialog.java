@@ -1,5 +1,6 @@
 package com.android.yapp.scenetalker;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,8 @@ public class Chattingroom_Exit_Dialog {
             @Override
             public void onClick(View view) {
                 dlg.dismiss();
+                ((Activity) context).finish();
+
 
 //                Intent intent = new Intent(context,FeedPage.class);
 //                context.startActivity(intent);
