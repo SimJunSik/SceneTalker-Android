@@ -53,6 +53,8 @@ public class ChattingActivity extends AppCompatActivity {
 
     Chattingroom_Exit_Dialog chattingroom_exit_dialog;
 
+    private TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,13 @@ public class ChattingActivity extends AppCompatActivity {
         setRecyclerView();
         setCurrentInfo();
 
+        title=(TextView)findViewById(R.id.title);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         for(int i=0;i<sweet_potato_lotties.length;i++){
             String lottie_sweet_potato_id = "lottie_action_sweet_potato" + Integer.toString(i+1);
             int res_sweet_potato_id = getResources().getIdentifier(lottie_sweet_potato_id, "id", getPackageName());

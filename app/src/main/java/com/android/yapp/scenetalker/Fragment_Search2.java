@@ -17,7 +17,7 @@ import java.util.List;
 public class Fragment_Search2 extends Fragment {
     private RecyclerView recyclerView=null;
     private Fragment_Search2_Adapter feedAdapter2=null;
-    private  List<FeedInfo> dataList=null;
+    private  List<GetPostInfo> dataList=null;
 
 
     @Nullable

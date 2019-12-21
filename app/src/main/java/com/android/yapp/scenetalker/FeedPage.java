@@ -62,41 +62,7 @@ public class FeedPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         init();
-        add();
         getfeed();
-//        Call<JsonArray> call2 = NetRetrofit.getInstance().getFeed("44");
-//        System.out.println("어이1");
-//        call2.enqueue(new Callback<JsonArray>() {
-//            @Override
-//            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-//                Gson gson = new Gson();
-//                if(response.body()==null)
-//                    return;
-//                JsonArray array = response.body().getAsJsonArray();
-//                System.out.println("어이2");
-//
-//                ArrayList<GetPostInfo> posts=new ArrayList<>();
-//                for(int i=0;i<array.size();i++){
-//                    GetPostInfo info = gson.fromJson(array.get(i),GetPostInfo.class);
-//                    contents=info.getContent();
-//                    dataList.add(new FeedInfo("hsg",contents,"방금 전",1,1));
-//
-//
-//                    System.out.println("받아와"+contents);
-//
-//                    if(info != null){
-//                        posts.add(info);
-//                    }
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonArray> call, Throwable t) {
-//                Log.e("err",t.getMessage());
-//                call.cancel();
-//            }
-//        });
     }
 
     @Override
@@ -144,6 +110,7 @@ public class FeedPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+                intent.putExtra("dramaId",drama_id);
                 startActivity(intent);
             }
         });
@@ -169,10 +136,6 @@ public class FeedPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview3);
         dataList = new ArrayList<GetPostInfo>();
     }
-    private void add(){
-        //dataList.add(new FeedInfo("hsg",contents,"방금 전",1,1));
-
-    }
 
     private void setRecyclerView(){
 
@@ -196,7 +159,7 @@ public class FeedPage extends AppCompatActivity {
                 ArrayList<GetPostInfo> posts=new ArrayList<>();
                 for(int i=0;i<array.size();i++){
                     GetPostInfo info = gson.fromJson(array.get(i),GetPostInfo.class);
-                    contents=info.getContent();
+                    //contents=info.getContent();
 
 
                     if(info != null){
