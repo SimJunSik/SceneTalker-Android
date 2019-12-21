@@ -42,10 +42,15 @@ public interface RetrofitService {
     @Multipart
     @POST("feed/{feed_id}/post/")
     Call<JsonObject> feed(@Part MultipartBody.Part image, @Part("content") RequestBody content , @Path("feed_id")int feed_id);
-    @POST("feed/{feed_id}/post/")
+
+    @GET("feed/{feed_id}/post/")
+    Call<JsonArray> feed(@Path("feed_id")int feed_id,@Query("content") String content);
+
+    @GET("feed/{feed_id}/post/")
     Call<JsonObject> feed(@Body PostInfo postinfo , @Path("feed_id")int feed_id);
     @GET("feed/{feed_id}/post/")
     Call<JsonArray> getFeed(@Path("feed_id")int feed_id);
+
     @POST("feed/{feed_id}/post/{post_id}/like/")
     Call<JsonObject> setLike(@Path("feed_id") String feed_id,@Path("post_id") String post_id);
 
@@ -57,4 +62,12 @@ public interface RetrofitService {
 
     @POST("feed/{feed_id}/post/{post_id}/comment/")
     Call<JsonObject> addComment(@Body PostInfo postinfo , @Path("feed_id")String feed_id, @Path("post_id")String post_id);
+
+    @GET("user/posts/write/")
+    Call<JsonArray> myWrite();
+
+    @GET("user/posts/like/")
+    Call<JsonArray> myLike();
+
+
 }

@@ -8,6 +8,7 @@ import com.bumptech.glide.RequestBuilder;
 
 public class GetPostInfo {
 
+    String title;
     String id;
     String feed;
     String author;
@@ -17,11 +18,23 @@ public class GetPostInfo {
     String[] likes;
     String created_at;
     String updated_at;
+
+
+    String post_drama_title;
     Bitmap bitmap_image;
     int like_counts;
     int comment_counts;
     boolean is_mine;
     boolean is_liked_by_me;
+
+
+    public String getPost_drama_title() {
+        return post_drama_title;
+    }
+
+    public void setPost_drama_title(String post_drama_title) {
+        this.post_drama_title = post_drama_title;
+    }
 
     public String getId() {
         return id;

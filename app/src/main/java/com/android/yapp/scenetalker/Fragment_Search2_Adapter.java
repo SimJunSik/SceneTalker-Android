@@ -1,11 +1,22 @@
 package com.android.yapp.scenetalker;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -15,11 +26,11 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
 
     private Context context;
     private int resourceId;
-    private ArrayList<FeedInfo> arraylist;
-    private List<FeedInfo> dataList =null ;
+    private ArrayList<GetPostInfo> arraylist;
+    private List<GetPostInfo> dataList;
     private final int TYPE_ITEM=1;
 
-    public Fragment_Search2_Adapter(Context context, int resourceId, List<FeedInfo>dataList){
+    public Fragment_Search2_Adapter(Context context, int resourceId, List<GetPostInfo>dataList){
         this.context=context;
         this.resourceId=resourceId;
         this.dataList=dataList;
@@ -39,16 +50,18 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)  {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        itemViewHolder.onBind(dataList.get(position));
-    }
+        itemViewHolder.onBind(dataList.get(position),position);    }
 
     @Override
     public int getItemCount() {
         return dataList.size();
     }
 
+    public void setDataListBitmap(int position, Bitmap bitmap) {
+        this.dataList.get(position).setBitmap_image(bitmap);
+    }
     @Override
     public int getItemViewType(int position) {
         return TYPE_ITEM;
@@ -60,23 +73,64 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
         TextView feed_time;
         TextView comment_num;
         TextView heart_num;
+        ImageButton feedHeartBtn,feedCommentBtn;
+        ImageView feed_img;
+       // TextView drama_title;
 
         public ItemViewHolder(View itemView){
             super(itemView);
+           // drama_title=itemView.findViewById(R.id.title);
             name=itemView.findViewById(R.id.username);
             feed_post=itemView.findViewById(R.id.feed_post);
             feed_time=itemView.findViewById(R.id.feed_time);
             comment_num=itemView.findViewById(R.id.comment_num);
             heart_num=itemView.findViewById(R.id.heart_num);
+            feed_img = itemView.findViewById(R.id.feed_image);
+            feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
+            feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
+
 
         }
 
-        void onBind(FeedInfo dataList){
-            name.setText(dataList.getUsername());
-            feed_post.setText(dataList.getComment());
-            feed_time.setText(dataList.getComment_time());
-            comment_num.setText(Integer.toString(dataList.getComment_num()));
-            heart_num.setText(Integer.toString(dataList.getHeart_num()));
+        void onBind(final GetPostInfo dataList, final int position){
+//            drama_title.setText(dataList.getPost_drama_title());
+            name.setText(dataList.getAuthor_name());
+            feed_post.setText(dataList.getContent());
+            feed_time.setText(dataList.getUpdated_at());
+            comment_num.setText(String.valueOf(dataList.getComment_counts()));
+            heart_num.setText(String.valueOf(dataList.getLike_counts()));
+            if(dataList.getImage() != null){
+                if(dataList.getBitmap_image() == null) {
+                    Uri uri = Uri.parse(dataList.getImage());
+                    Glide.with(context).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            setDataListBitmap(position,resource);
+                            Glide.with(context).load(resource).into(feed_img);
+                        }
+                    });
+                }else{
+                    Glide.with(context).load(dataList.getBitmap_image()).into(feed_img);
+                }
+            }
+
+            if (dataList.is_liked_by_me){
+                feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));
+            }else{
+                feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));
+            }
+
+
+            feedCommentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+                    intent.putExtra("feedId",dataList.getFeed());
+                    intent.putExtra("postId",dataList.getId());
+
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
