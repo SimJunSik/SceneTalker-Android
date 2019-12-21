@@ -3,6 +3,8 @@ package com.android.yapp.scenetalker;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,10 +20,10 @@ public class Chattingroom_Exit_Dialog {
     public void callFunction(){
         final Dialog dlg = new Dialog(context);
         dlg.setContentView(R.layout.chattingroom_exit_dialog);
+        dlg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dlg.setCanceledOnTouchOutside(false);
         WindowManager.LayoutParams params = dlg.getWindow().getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dlg.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
 
         dlg.show();
 

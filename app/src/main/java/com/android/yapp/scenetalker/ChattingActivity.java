@@ -1,12 +1,17 @@
 package com.android.yapp.scenetalker;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,10 +53,18 @@ public class ChattingActivity extends AppCompatActivity {
     private String user_id;
     private String drama_title;
 
+
     private int lottie_sweet_potato_count = 0;
     private int lottie_saida_count = 0;
 
+    Cider_Pass_Dialog cider_pass_dialog;
     Chattingroom_Exit_Dialog chattingroom_exit_dialog;
+    SweetPotato_Pass_Dialog sweetPotato_pass_dialog;
+    Chattingroom_Notify_Dialog chattingroom_notify_dialog;
+
+    String soda_count;
+    String sweet_potato_count;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +73,12 @@ public class ChattingActivity extends AppCompatActivity {
         init();
         setRecyclerView();
         setCurrentInfo();
+        cider_pass_dialog = new Cider_Pass_Dialog(this);
+        sweetPotato_pass_dialog = new SweetPotato_Pass_Dialog(this);
+        chattingroom_notify_dialog = new Chattingroom_Notify_Dialog(this);
+
+        chattingroom_notify_dialog.callFunction();
+        chattingroom_notify_dialog.delayTime(3000);
 
         for(int i=0;i<sweet_potato_lotties.length;i++){
             String lottie_sweet_potato_id = "lottie_action_sweet_potato" + Integer.toString(i+1);
@@ -76,7 +95,9 @@ public class ChattingActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View view) {
+               // sweet_potato_lotties[lottie_sweet_potato_count].setAnimation("sweet_potato2.json");
                 sweet_potato_lotties[lottie_sweet_potato_count].setAnimation("sweet_potato2.json");
+
                 sweet_potato_lotties[lottie_sweet_potato_count].playAnimation();
                 lottie_sweet_potato_count = (lottie_sweet_potato_count+1)%sweet_potato_lotties.length;
                 send_count("potato");
@@ -184,8 +205,8 @@ public class ChattingActivity extends AppCompatActivity {
                 }
                 JSONObject jsonObj = (JSONObject) obj;
 
-                String soda_count = jsonObj.get("soda_count").toString();
-                String sweet_potato_count = jsonObj.get("sweet_potato_count").toString();
+                soda_count = jsonObj.get("soda_count").toString();
+                sweet_potato_count = jsonObj.get("sweet_potato_count").toString();
                 Log.i("결과",soda_count + " " + sweet_potato_count);
 
                 TextView soda_count_text = findViewById(R.id.soda_count);
@@ -193,6 +214,7 @@ public class ChattingActivity extends AppCompatActivity {
 
                 soda_count_text.setText(soda_count);
                 sweet_potato_count_text.setText(sweet_potato_count);
+
             }
 
             @Override
@@ -280,9 +302,22 @@ public class ChattingActivity extends AppCompatActivity {
                 String sender = obj.get("sender").toString();
                 String message_text = obj.get("message").toString();
 
+
                 if (sender.equals("AdminServer")){
                     // Log.i("AdminServer", message_text);
                     set_count();
+                    String kind = obj.get("kind").toString();
+
+                    if(kind.equals("soda")&&(Integer.parseInt(soda_count) %10 == 0) && (Integer.parseInt(soda_count) > 0)){
+                        cider_pass_dialog.callFunction();
+                        cider_pass_dialog.getCider_pass_textview().setText(soda_count);
+                        cider_pass_dialog.delayTime(700);
+                    }
+                    if(kind.equals("potato")&&(Integer.parseInt(sweet_potato_count) %10 == 0) &&(Integer.parseInt(sweet_potato_count) > 0)){
+                        sweetPotato_pass_dialog.callFunction();
+                        sweetPotato_pass_dialog.getSweetpotato_pass_textview().setText(sweet_potato_count);
+                        sweetPotato_pass_dialog.delayTime(700);
+                    }
                 }
                 else {
                     dataList.add(new ChattingInfo(sender, message_text));

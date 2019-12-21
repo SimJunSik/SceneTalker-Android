@@ -9,9 +9,14 @@
         android:id="@+id/cardView"
         android:background="@drawable/round_rec2"
         android="http://schemas.android.com/apk/res/android"
-        android:layout_width="302dp"
-        android:layout_height="336dp"
-
+        android:layout_width="260dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.082"
@@ -26,60 +31,33 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/image"
-                android:layout_width="57dp"
-                android:layout_height="82dp"
+                android:layout_width="260dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="127dp"
-                android:layout_marginTop="34dp"
                 android:layout_marginEnd="127dp"
                 android:layout_weight="0.8"
-                android:src="@drawable/notify_cider"
+                android:src="@drawable/cider_pass"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
 
-              />
+                />
 
             <TextView
                 android:textColor="#161616"
-                android:id="@+id/textView"
+                android:id="@+id/cider_pass_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="78dp"
-                android:layout_marginTop="151dp"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="175dp"
                 android:layout_marginEnd="77dp"
                 android:textSize="16sp"
-                android:text="정말 나가실 건가요?"
+                android:text="300"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:textColor="#5f5f5f"
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="13dp"
-                android:text="라이브톡은 드라마 방영 시작 10분 전부터 \n 방영 종료 10분 후까지만 오픈됩니다:) \n톡방이 사라지면 내용은 저장되지 않습니다!"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <Button
-                android:id="@+id/exit_dilaog_button"
-                android:layout_width="140dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="137dp"
-                android:layout_marginTop="26.6dp"
-                android:layout_marginEnd="137dp"
-                android:background="@drawable/bg_login_btn"
-                android:text="피드 바로가기"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
