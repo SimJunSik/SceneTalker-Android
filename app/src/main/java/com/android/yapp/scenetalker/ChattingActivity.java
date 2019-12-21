@@ -78,7 +78,7 @@ public class ChattingActivity extends AppCompatActivity {
         cider_pass_dialog = new Cider_Pass_Dialog(this);
         sweetPotato_pass_dialog = new SweetPotato_Pass_Dialog(this);
         chattingroom_notify_dialog = new Chattingroom_Notify_Dialog(this);
-
+        chattingroom_exit_dialog = new Chattingroom_Exit_Dialog(this);
         chattingroom_notify_dialog.callFunction();
         chattingroom_notify_dialog.delayTime(3000);
 
@@ -177,7 +177,8 @@ public class ChattingActivity extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                chattingroom_exit_dialog.callFunction();
+             // finish();
             }
         });
     }
