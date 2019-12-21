@@ -8,6 +8,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardView"
         android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/round_rec2"
         android:layout_width="302dp"
         android:layout_height="336dp"
         android:layout_marginStart="8dp"
