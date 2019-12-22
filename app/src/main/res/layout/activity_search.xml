@@ -35,6 +35,16 @@
             android:singleLine="true"
             />
 
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:background="#00ff0000"
+            android:src="@drawable/search"
+            android:scaleType="centerCrop"
+            />
+
     </LinearLayout>
     <fragment
         android:id="@+id/fragment_place"

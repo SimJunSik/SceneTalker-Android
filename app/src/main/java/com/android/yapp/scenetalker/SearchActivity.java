@@ -2,8 +2,6 @@ package com.android.yapp.scenetalker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +25,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private ImageButton backtofeed;
+    private ImageButton search_button;
     private EditText search_text;
     Fragment_Search2 fragment_search2;
     Fragment_Search1 fragment_search1;
@@ -46,6 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         dramaId = intent.getIntExtra("dramaId",-1);
 
         search_text = findViewById(R.id.search_text);
+        search_button = findViewById(R.id.search_button);
         backtofeed = findViewById(R.id.backtofeed);
         fragment_search2 = new Fragment_Search2();
         fragment_search1 = new Fragment_Search1();
@@ -64,39 +64,17 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        search_text.addTextChangedListener(new TextWatcher() {
+        search_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_place, fragment_search3).commit();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onClick(View view) {
                 String text = search_text.getText().toString();
                 search(text);
-
             }
         });
-
     }
     private void init(){
         recyclerView = findViewById(R.id.match_recyclerview);
         dataList = new ArrayList<GetPostInfo>();
-    }
-    private void add(){
-//        //    public FeedInfo(String name, String comment, String comment_time,int comment_num, int heart_num){
-//        dataList.add(new FeedInfo("배가수지","z","3분전",1,2));
-//        dataList.add(new FeedInfo("배가수지","수지가 쓴 선글라스 어디꺼죠? 너무 예뻐요! 당장살래..","3분전",1,2));
-//        dataList.add(new FeedInfo("만두 먹고 싶다","수지 천재 얼굴 천재 연기 천재 너무 좋아 수지 최고","1분전",5,8));
-//        dataList.add(new FeedInfo("달건아 달려","고해리 정체가 무예요?? 왜 비행기 추락시킨 회사 회장한테 보고하는 거에요? 이승기랑 ..","방금전",3,5));
-//        dataList.add(new FeedInfo("달건아 달려","고해리 정체가 무예요?? 왜 비행기 추락시킨 회사 회장한테 보고하는 거에요? 이승기랑 ..","방금전",3,5));
-//        dataList.add(new FeedInfo("달건아 달려","고해리 정체가 무예요?? 왜 비행기 추락시킨 회사 회장한테 보고하는 거에요? 이승기랑 ..","방금전",3,5));
-
     }
 
     private void setRecyclerView() {
@@ -107,26 +85,13 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String charText) {
-//        arraylist = new ArrayList<>();
-//        add();
-//        arraylist.addAll(dataList);
           dataList.clear();
         if (charText.length() == 0) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_place, fragment_search1).commit();
-            //dataList.addAll(arraylist);
         } else {
             getSearch(charText);
-//            for (int i = 0; i < arraylist.size(); i++) {
-//                if (arraylist.get(i).getContent().toLowerCase().contains(charText)) { //내용일치시
-//
-//                    dataList.add(arraylist.get(i));
-//
-//                } else {
-//
-//                }
-//            }
         }
         feedAdapter2.notifyDataSetChanged();
     }
@@ -151,10 +116,8 @@ public class SearchActivity extends AppCompatActivity {
                         posts.add(info);
                         dataList.add(info);
                     }
-
                 }
                 setRecyclerView();
-
             }
 
             @Override
