@@ -69,5 +69,6 @@ public interface RetrofitService {
     @GET("user/posts/like/")
     Call<JsonArray> myLike();
 
-
+    @GET("user/bookmark-best-drama/")
+    Call<JsonObject> getUserBookmarkBestDrama();
 }

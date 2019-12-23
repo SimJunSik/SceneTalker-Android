@@ -3,9 +3,34 @@ package com.android.yapp.scenetalker;
 public class User {
     String username;
     String email;
+    String profile_image_url;
     String password1;
     String password2;
     String password;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProfile_image_url() {
+        return profile_image_url;
+    }
+
+    public void setProfile_image_url(String profile_image_url) {
+        this.profile_image_url = profile_image_url;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public User(String first_name,String username,String password1,String password2){
         this.email = first_name;

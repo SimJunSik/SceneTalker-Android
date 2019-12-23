@@ -261,7 +261,7 @@ public class ChattingActivity extends AppCompatActivity {
                 }
                 JSONObject jsonObj = (JSONObject) obj;
 
-                user_id = jsonObj.get("user_id").toString();
+                user_id = jsonObj.get("pk").toString();
 
                 webSocket = new WebSocket(handler, drama_id, episode, user_id);
                 webSocket.connectWebSocket();

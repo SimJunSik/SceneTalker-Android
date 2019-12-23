@@ -4,18 +4,32 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.android.yapp.scenetalker.databinding.ActivityMainBinding;
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseActivity implements Switch.OnCheckedChangeListener {
     ActivityMainBinding binding;
@@ -27,17 +41,20 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
 
     ImageView goto_mypage;
 
-    String titleText = "배가본드";
+    TextView firstTitle;
+    String username;
+    String user_profile_image_url;
+
+    String titleText;
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        String secondTitleText =  String.format(getResources().getString(R.string.main_second_title),titleText);
         goto_mypage = findViewById(R.id.goto_mypage);
-        SpannableStringBuilder ssb = new SpannableStringBuilder(secondTitleText);
-        ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 0, titleText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        binding.mainSecondTitle.setText(ssb);
+        firstTitle = findViewById(R.id.main_first_title);
         initFragment();
         binding.onAirSwitch.setOnCheckedChangeListener(this);
         goto_mypage.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +64,8 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
                 startActivity(intent);
             }
         });
+        setCurrnetInfo();
+        context = getApplicationContext();
     }
 
     public void initFragment(){
@@ -55,6 +74,102 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
         offAirFragment = new OffAirFragment();
         transaction = fragmentManager.beginTransaction();
         transaction.add(binding.frameLayout.getId(),offAirFragment).commitAllowingStateLoss();
+    }
+
+    public void getCurrnetUserInfo(String user_key){
+        Log.i("토큰", user_key);
+        Token token = new Token(user_key);
+        Call<JsonObject> service = NetRetrofit.getInstance().getUser(token);
+        service.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Gson gson = new Gson();
+                if(response.message() != null) {
+                    Log.i("에러 결과", response.toString());
+                }
+                if(response.body() == null){
+                    return;
+                }
+                Log.i("결과",response.body().toString());
+                JSONParser parser = new JSONParser();
+                Object obj = null;
+                try {
+                    obj = parser.parse(response.body().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonObj = (JSONObject) obj;
+
+                if(jsonObj.get("profile_image") == null){
+                    user_profile_image_url = "";
+                } else {
+                    user_profile_image_url = jsonObj.get("profile_image").toString();
+                }
+
+                Log.i("유저 정보", user_profile_image_url);
+                Glide.with(context).load(user_profile_image_url).into(goto_mypage);
+
+                username = jsonObj.get("username").toString();
+                String title_text = "지금 " + username + "님이 좋아하는";
+                firstTitle.setText(title_text);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void getCurrentUserBestDramaInfo(){
+        Call<JsonObject> service = NetRetrofit.getInstance().getUserBookmarkBestDrama();
+        service.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Gson gson = new Gson();
+                if(response.message() != null) {
+                    Log.i("에러 결과", response.toString());
+                }
+                if(response.body() == null){
+                    return;
+                }
+                Log.i("결과",response.body().toString());
+                JSONParser parser = new JSONParser();
+                Object obj = null;
+                try {
+                    obj = parser.parse(response.body().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonObj = (JSONObject) obj;
+
+                Log.i("베스트 드라마 결과", jsonObj.toString());
+                String best_drama_title = jsonObj.get("title").toString();
+                String secondTitleText = "";
+                if(best_drama_title.equals("")){
+                    titleText = "드라마";
+                    secondTitleText =  titleText + "에 대해 자유롭게 소통하세요!";
+                }
+                else {
+                    titleText = best_drama_title;
+                    secondTitleText =  titleText + "이 방영 중 이에요!";
+                }
+                SpannableStringBuilder ssb = new SpannableStringBuilder(secondTitleText);
+                ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 0, titleText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                binding.mainSecondTitle.setText(ssb);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void setCurrnetInfo(){
+        String user_key = Utils.user_key;
+        getCurrnetUserInfo(user_key);
+        getCurrentUserBestDramaInfo();
     }
 
     @Override

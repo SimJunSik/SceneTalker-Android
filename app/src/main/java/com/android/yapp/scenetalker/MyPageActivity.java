@@ -1,5 +1,6 @@
 package com.android.yapp.scenetalker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -16,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,15 +33,19 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton mylike;
     NicknameDialog nicknameDialog;
     ProfileDialog profileDialog;
+    CircleImageView mypage_profile_image;
     String username;
     String user_email;
-
+    String user_profile_image_url;
 
     ImageButton profile_img_change;
+
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_page);
+        context = getApplicationContext();
 
         mypageback = findViewById(R.id.mypage_back_btn);
         mypageback.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +54,7 @@ public class MyPageActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mypage_profile_image = findViewById(R.id.my_profile_img);
         passwordchange = findViewById(R.id.password_change);
         nicknamechange = findViewById(R.id.nickname_change);
         mypage_username = findViewById(R.id.mypage_username);
@@ -124,9 +132,11 @@ public class MyPageActivity extends AppCompatActivity {
 
                 username = jsonObj.get("username").toString();
                 user_email = jsonObj.get("email").toString();
+                user_profile_image_url = jsonObj.get("profile_image").toString();
 
                 mypage_username.setText(username);
                 mypage_email.setText(user_email);
+                Glide.with(context).load(user_profile_image_url).into(mypage_profile_image);
             }
 
             @Override
