@@ -41,7 +41,6 @@ public class OnAirFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         this.mPagerAdapter = new PagerAdapter(getChildFragmentManager());
-
     }
 
     @Nullable
@@ -139,9 +138,7 @@ public class OnAirFragment extends Fragment {
                     if(info != null){
                         id=info.getId();
                         dramas.add(info);
-
                     }
-
                 }
 
                 page++;
@@ -154,7 +151,7 @@ public class OnAirFragment extends Fragment {
                 t.printStackTrace();
             }
         });
-
-
     }
+
+
 }

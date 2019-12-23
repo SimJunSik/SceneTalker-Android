@@ -2,10 +2,12 @@ package com.android.yapp.scenetalker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,11 @@ import java.util.StringTokenizer;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,6 +89,7 @@ public class OffAirAdapter extends RecyclerView.Adapter<OffAirAdapter.ViewHolder
         TextView time;
         Button count;
         Button gotofeed;
+        ImageButton bookmark_button;
 
         public ViewHolder(View itemView,final OnInfoItemClickListener listener,final Context context){
             super(itemView);
@@ -93,6 +101,7 @@ public class OffAirAdapter extends RecyclerView.Adapter<OffAirAdapter.ViewHolder
             count = itemView.findViewById(R.id.count);
 
             gotofeed = itemView.findViewById(R.id.gotofeed);
+            bookmark_button = itemView.findViewById(R.id.bookmark_button);
             itemView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -123,14 +132,61 @@ public class OffAirAdapter extends RecyclerView.Adapter<OffAirAdapter.ViewHolder
             gotofeed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(mContext,FeedPage.class);
+                    Intent intent = new Intent(mContext,FeedPage.class);
                     intent.putExtra("name",feedname);
                     intent.putExtra("episode",episode_num);
                     intent.putExtra("id",drama_id);
 
-
-
                     mContext.startActivity(intent);
+                }
+            });
+            bookmark_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("북마크", Integer.toString(drama_id));
+                    Call<JsonObject> service = NetRetrofit.getInstance().toggleUserDramaBookmark(Integer.toString(drama_id));
+                    service.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            Gson gson = new Gson();
+                            if(response.message() != null) {
+                                Log.i("에러 결과", response.toString());
+                            }
+                            if(response.body() == null){
+                                return;
+                            }
+                            Log.i("북마크",response.body().toString());
+                            JSONParser parser = new JSONParser();
+                            Object obj = null;
+                            try {
+                                obj = parser.parse(response.body().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            JSONObject jsonObj = (JSONObject) obj;
+
+                            String description;
+                            description = jsonObj.get("description").toString();
+
+                            String result;
+                            result = jsonObj.get("result").toString();
+
+                            Log.i("북마크", result + " " + description);
+                            if(result.equals("OK")){
+                                if(description.equals("add")) {
+                                    bookmark_button.setImageResource(R.drawable.bookmark_full);
+                                }
+                                else if(description.equals("remove")){
+                                    bookmark_button.setImageResource(R.drawable.bookmark_empty);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
                 }
             });
             if(item.getPoster_url() != null&& !item.getPoster_url().equals("")){
@@ -153,6 +209,12 @@ public class OffAirAdapter extends RecyclerView.Adapter<OffAirAdapter.ViewHolder
             }
             time.setText(day);
             count.setText(String.valueOf(getAdapterPosition()+1));
+            if(item.isIs_bookmarked_by_me()){
+                bookmark_button.setImageResource(R.drawable.bookmark_full);
+            }
+            else {
+                bookmark_button.setImageResource(R.drawable.bookmark_empty);
+            }
         }
     }
 }

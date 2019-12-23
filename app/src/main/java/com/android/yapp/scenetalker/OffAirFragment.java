@@ -72,14 +72,6 @@ public class OffAirFragment extends Fragment {
         return rootView;
     }
     private void initUi(ViewGroup rootView) {
-//        Button gotofeed = rootView.findViewById(R.id.gotofeed);
-//        gotofeed.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
         recyclerView = rootView.findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

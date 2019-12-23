@@ -71,4 +71,7 @@ public interface RetrofitService {
 
     @GET("user/bookmark-best-drama/")
     Call<JsonObject> getUserBookmarkBestDrama();
+
+    @POST("user/{drama_id}/bookmark/")
+    Call<JsonObject> toggleUserDramaBookmark(@Path("drama_id")String drama_id);
 }

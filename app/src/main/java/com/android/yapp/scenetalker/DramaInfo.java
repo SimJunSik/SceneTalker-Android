@@ -15,6 +15,7 @@ public class DramaInfo {
     String broadcasting_end_time;
     String broadcasting_station;
     boolean is_broadcasting;
+    boolean is_bookmarked_by_me;
     String episode;
 
     public int getId() {
@@ -111,6 +112,14 @@ public class DramaInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isIs_bookmarked_by_me() {
+        return is_bookmarked_by_me;
+    }
+
+    public void setIs_bookmarked_by_me(boolean is_bookmarked_by_me) {
+        this.is_bookmarked_by_me = is_bookmarked_by_me;
     }
 }
 

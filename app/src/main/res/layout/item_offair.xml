@@ -181,6 +181,27 @@
                 app:layout_constraintHorizontal_bias="0.949"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <ImageButton
+                android:id="@+id/bookmark_button"
+                android:src="@drawable/bookmark_empty"
+                android:scaleType="centerCrop"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:background="#00ff0000"
+                android:text="피드 보러가기 >"
+                android:textColor="#FF4444"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.949"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
