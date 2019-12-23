@@ -329,12 +329,15 @@ public class ChattingActivity extends AppCompatActivity {
                     set_count();
                     String kind = obj.get("kind").toString();
 
-                    int soda_count_int = Integer.parseInt(soda_count);
-                    int sweet_potato_count_int = Integer.parseInt(sweet_potato_count);
+                    int soda_count_int = -1;
+                    int sweet_potato_count_int = -1;
 
                     if((before_soda_count == soda_count_int) || (before_sweet_potato_count == sweet_potato_count_int)){
                         return;
                     }
+
+                    soda_count_int = Integer.parseInt(soda_count);
+                    sweet_potato_count_int = Integer.parseInt(sweet_potato_count);
 
                     if(kind.equals("soda") && (soda_count_int % 10 == 0) && (soda_count_int > 0)){
                         cider_pass_dialog.callFunction();
