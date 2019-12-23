@@ -76,7 +76,7 @@ public class PageFragment extends Fragment {
         drama_title = item.getTitle();
         drama_id = item.getId();
         episode = item.getEpisode();
-        
+
         Button btn_to_feed=rootView.findViewById(R.id.feed_button);
         btn_to_feed.setOnClickListener(new View.OnClickListener() {
             @Override
