@@ -32,7 +32,6 @@ public class Cider_Pass_Dialog {
         wm.height=336;
 
         dlg.show();
-
     }
     public void delayTime(long time){
 

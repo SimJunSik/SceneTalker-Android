@@ -62,8 +62,13 @@ public class ChattingActivity extends AppCompatActivity {
     SweetPotato_Pass_Dialog sweetPotato_pass_dialog;
     Chattingroom_Notify_Dialog chattingroom_notify_dialog;
 
-    String soda_count;
-    String sweet_potato_count;
+    private String soda_count;
+    private String sweet_potato_count;
+
+    private int before_soda_count;
+    private int before_sweet_potato_count;
+
+    private boolean set_init_count = false;
 
 
     private TextView title;
@@ -215,6 +220,12 @@ public class ChattingActivity extends AppCompatActivity {
                 }
                 JSONObject jsonObj = (JSONObject) obj;
 
+                if(!set_init_count){
+                    before_soda_count = Integer.parseInt(jsonObj.get("soda_count").toString());
+                    before_sweet_potato_count = Integer.parseInt(jsonObj.get("sweet_potato_count").toString());
+                    set_init_count = true;
+                }
+
                 soda_count = jsonObj.get("soda_count").toString();
                 sweet_potato_count = jsonObj.get("sweet_potato_count").toString();
                 Log.i("결과",soda_count + " " + sweet_potato_count);
@@ -318,15 +329,24 @@ public class ChattingActivity extends AppCompatActivity {
                     set_count();
                     String kind = obj.get("kind").toString();
 
-                    if(kind.equals("soda")&&(Integer.parseInt(soda_count) %10 == 0) && (Integer.parseInt(soda_count) > 0)){
+                    int soda_count_int = Integer.parseInt(soda_count);
+                    int sweet_potato_count_int = Integer.parseInt(sweet_potato_count);
+
+                    if((before_soda_count == soda_count_int) || (before_sweet_potato_count == sweet_potato_count_int)){
+                        return;
+                    }
+
+                    if(kind.equals("soda") && (soda_count_int % 10 == 0) && (soda_count_int > 0)){
                         cider_pass_dialog.callFunction();
                         cider_pass_dialog.getCider_pass_textview().setText(soda_count);
                         cider_pass_dialog.delayTime(700);
+                        before_soda_count = Integer.parseInt(soda_count);
                     }
-                    if(kind.equals("potato")&&(Integer.parseInt(sweet_potato_count) %10 == 0) &&(Integer.parseInt(sweet_potato_count) > 0)){
+                    if(kind.equals("potato") && (sweet_potato_count_int % 10 == 0) && (sweet_potato_count_int > 0)){
                         sweetPotato_pass_dialog.callFunction();
                         sweetPotato_pass_dialog.getSweetpotato_pass_textview().setText(sweet_potato_count);
                         sweetPotato_pass_dialog.delayTime(700);
+                        before_sweet_potato_count = Integer.parseInt(sweet_potato_count);
                     }
                 }
                 else {
