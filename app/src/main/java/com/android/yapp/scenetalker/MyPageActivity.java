@@ -31,6 +31,7 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton nicknamechange;
     ImageButton mywrite;
     ImageButton mylike;
+    ImageButton mybookmark;
     NicknameDialog nicknameDialog;
     ProfileDialog profileDialog;
     CircleImageView mypage_profile_image;
@@ -62,6 +63,7 @@ public class MyPageActivity extends AppCompatActivity {
         profile_img_change = findViewById(R.id.profile_img_change);
         mywrite = findViewById(R.id.mywrite);
         mylike = findViewById(R.id.mylike);
+        mybookmark=findViewById(R.id.mybookmark);
 
         nicknameDialog = new NicknameDialog(this);
         profileDialog = new ProfileDialog(this);
@@ -100,6 +102,13 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MyLikeActivity.class);
+                startActivity(intent);
+            }
+        });
+        mybookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyBookmarkActivity.class);
                 startActivity(intent);
             }
         });
