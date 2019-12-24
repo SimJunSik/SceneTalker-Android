@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,6 +33,7 @@ public class Fragment_Search1 extends Fragment {
     static Fragment_Search1_Adapter searchAdapter;
     LinearLayoutManager layoutManager;
     ImageButton b;
+    Button recentSearchesDeleteAllButton;
 
     @Nullable
     @Override
@@ -43,6 +49,46 @@ public class Fragment_Search1 extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         searchAdapter = new Fragment_Search1_Adapter();
+        recentSearchesDeleteAllButton = rootView.findViewById(R.id.recent_searches_all_delete_button);
+
+        recentSearchesDeleteAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchWordInfo searchWordInfo = new SearchWordInfo("");
+                Call<JsonObject> service = NetRetrofit.getInstance().deleteUserRecentSearches(searchWordInfo);
+                service.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        Gson gson = new Gson();
+                        if(response.body() == null){
+                            return;
+                        }
+                        Log.i("코드",""+response.code());
+
+                        Log.i("결과",response.body().toString());
+                        JSONParser parser = new JSONParser();
+                        Object obj = null;
+                        try {
+                            obj = parser.parse(response.body().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        JSONObject jsonObj = (JSONObject) obj;
+
+                        String result = jsonObj.get("result").toString();
+                        if(result.equals("OK")){
+                            recyclerView.setAdapter(null);
+                            searchAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
 
 
         Call<JsonObject> service = NetRetrofit.getInstance().getUserRecentSearches();
