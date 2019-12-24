@@ -39,15 +39,18 @@ public interface RetrofitService {
     Call<JsonObject> signup(@Body User user);
     @POST("rest-auth/login/")
     Call<JsonObject> login(@Body User user);
+
     @Multipart
     @POST("feed/{feed_id}/post/")
-    Call<JsonObject> feed(@Part MultipartBody.Part image, @Part("content") RequestBody content , @Path("feed_id")int feed_id);
+    Call<JsonObject> writePostWithImage(@Part MultipartBody.Part image, @Part("content") RequestBody content , @Path("feed_id")int feed_id);
+
+    @Multipart
+    @POST("feed/{feed_id}/post/")
+    Call<JsonObject> writePostOnlyContent(@Part("content") RequestBody content , @Path("feed_id")int feed_id);
 
     @GET("feed/{feed_id}/post/")
     Call<JsonArray> feed(@Path("feed_id")int feed_id,@Query("content") String content);
 
-    @GET("feed/{feed_id}/post/")
-    Call<JsonObject> feed(@Body PostInfo postinfo , @Path("feed_id")int feed_id);
     @GET("feed/{feed_id}/post/")
     Call<JsonArray> getFeed(@Path("feed_id")int feed_id);
 

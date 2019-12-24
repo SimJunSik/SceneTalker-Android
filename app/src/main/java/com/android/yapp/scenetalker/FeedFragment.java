@@ -45,7 +45,7 @@ public class FeedFragment extends Fragment {
         if(potato_pc == 0){
             cider_pc = 0;
         }
-        ((TextView) rootView.findViewById(R.id.episode_result)).setText(item.getEpisode() + "차 결과");
+        ((TextView) rootView.findViewById(R.id.episode_result)).setText(item.getEpisode() + "회차 결과");
         ((TextView) rootView.findViewById(R.id.cider_percent)).setText(cider_pc + "%");
         ((TextView) rootView.findViewById(R.id.potato_percent)).setText(potato_pc + "%");
         ((ProgressBar)rootView.findViewById(R.id.progressbar)).setProgress(potato_pc);

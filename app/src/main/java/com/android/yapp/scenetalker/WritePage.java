@@ -102,7 +102,6 @@ public class WritePage extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                PostInfo postInfo = new PostInfo(write_ed.getText().toString());
                 if(bitmap != null) {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
@@ -117,11 +116,11 @@ public class WritePage extends AppCompatActivity {
                     }
                     RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"),file);
                     MultipartBody.Part part = MultipartBody.Part.createFormData("image",file.getName(),fileReqBody);
-//                    postInfo.setImage(part);
-                    service = NetRetrofit.getInstance().feed(part,content, dramaId);
+                    service = NetRetrofit.getInstance().writePostWithImage(part, content, dramaId);
                 }else {
-                    service = NetRetrofit.getInstance().feed(postInfo, dramaId);
+                    service = NetRetrofit.getInstance().writePostOnlyContent(content, dramaId);
                 }
+
                 service.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

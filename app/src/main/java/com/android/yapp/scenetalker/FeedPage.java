@@ -45,30 +45,19 @@ public class FeedPage extends AppCompatActivity {
     TextView drama_name_title;
     public static String drama_title,episode;
     public static int drama_id;
-    int dramas;
-    String contents;
-
-    int page;
-    String nextPage;
-    static int p;
-
-    TextView episode_result,potato_percent,cider_percent;
-    int potato_count,cider_count;
-    String episode_num;
-    int potato_pc,cider_pc;
-    FeedPage fp;
 
     @Override
     protected void onResume() {
         super.onResume();
-        init();
-        getfeed();
+//        init();
+//        getfeed();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed);
+
         Intent intent=getIntent();
         drama_title = intent.getExtras().getString("name");
         episode=intent.getExtras().getString("episode");
@@ -81,11 +70,6 @@ public class FeedPage extends AppCompatActivity {
 
         drama_name_title=(TextView)findViewById(R.id.drama_title);
         drama_name_title.setText(drama_title+" 게시판");
-
-
-
-
-
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +98,9 @@ public class FeedPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        init();
+        getfeed();
     }
 
     @Override
@@ -138,13 +125,13 @@ public class FeedPage extends AppCompatActivity {
     }
 
     private void setRecyclerView(){
-
         feedAdapter = new FeedAdapter(getApplicationContext(),R.layout.item_feed,dataList,getSupportFragmentManager());
         feedAdapter.setActivity(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(feedAdapter);
     }
+
     private void getfeed(){
         Call<JsonArray> call2 = NetRetrofit.getInstance().getFeed(drama_id);
         call2.enqueue(new Callback<JsonArray>() {
@@ -161,15 +148,12 @@ public class FeedPage extends AppCompatActivity {
                     GetPostInfo info = gson.fromJson(array.get(i),GetPostInfo.class);
                     //contents=info.getContent();
 
-
                     if(info != null){
                         posts.add(info);
                         dataList.add(info);
                     }
-
                 }
                 setRecyclerView();
-
             }
 
             @Override

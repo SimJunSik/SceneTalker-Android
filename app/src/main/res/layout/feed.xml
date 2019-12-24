@@ -47,16 +47,16 @@ android:layout_height="match_parent">
 </RelativeLayout>
 
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerview3"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="48dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="51dp" />
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/write_btn"
     android:layout_width="60dp"
     android:layout_height="60dp"
