@@ -48,6 +48,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".CommentActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".MyBookmarkActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
