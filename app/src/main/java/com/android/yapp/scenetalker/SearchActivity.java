@@ -37,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
 
     Fragment_Search2_Adapter feedAdapter2;
     private RecyclerView recyclerView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,13 +86,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String charText) {
-          dataList.clear();
+        dataList.clear();
         if (charText.length() == 0) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_place, fragment_search1).commit();
         } else {
             getSearch(charText);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            if(dataList.size() == 0) {
+                fragmentTransaction.replace(R.id.fragment_place, fragment_search3);
+            } else {
+                fragmentTransaction.remove(fragment_search1);
+            }
+            fragmentTransaction.commit();
         }
         feedAdapter2.notifyDataSetChanged();
     }
@@ -108,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
                 JsonArray array = response.body().getAsJsonArray();
                 Log.i("피드",response.body().toString());
 
-                ArrayList<GetPostInfo> posts=new ArrayList<>();
+                ArrayList<GetPostInfo> posts = new ArrayList<>();
                 for(int i=0;i<array.size();i++){
                     GetPostInfo info = gson.fromJson(array.get(i),GetPostInfo.class);
 

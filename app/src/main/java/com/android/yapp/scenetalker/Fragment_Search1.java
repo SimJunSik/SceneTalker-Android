@@ -1,6 +1,7 @@
 package com.android.yapp.scenetalker;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_Search1 extends Fragment {
     static RecyclerView recyclerView;
@@ -32,9 +43,31 @@ public class Fragment_Search1 extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         searchAdapter = new Fragment_Search1_Adapter();
-        searchAdapter.addItem(new SearchInfo("고해리 정체",b));
-        searchAdapter.addItem(new SearchInfo("수지 립스틱",b));
-        searchAdapter.addItem(new SearchInfo("이승기",b));
-        recyclerView.setAdapter(searchAdapter);
+
+
+        Call<JsonObject> service = NetRetrofit.getInstance().getUserRecentSearches();
+        service.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Gson gson = new Gson();
+                if(response.body() == null){
+                    return;
+                }
+                Log.i("코드",""+response.code());
+                JsonArray array = response.body().getAsJsonArray("recent_searches");
+
+                for(int i=0;i<array.size();i++) {
+                    searchAdapter.addItem(new SearchInfo(array.get(i).toString().replaceAll("\"",""), b));
+                }
+
+                recyclerView.setAdapter(searchAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 }
