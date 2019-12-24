@@ -20,6 +20,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -82,6 +83,9 @@ public interface RetrofitService {
 
     @GET("user/recent-searches/")
     Call<JsonObject> getUserRecentSearches();
+
+    @PUT("user/change/username/")
+    Call<JsonObject> putUsername(@Body String username);
 
     @HTTP(method = "DELETE", path = "user/recent-searches/", hasBody = true)
     Call<JsonObject> deleteUserRecentSearches(@Body SearchWordInfo search_word);

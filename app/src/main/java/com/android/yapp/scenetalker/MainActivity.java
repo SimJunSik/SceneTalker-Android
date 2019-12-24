@@ -68,6 +68,12 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
         context = getApplicationContext();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setCurrnetInfo();
+    }
+
     public void initFragment(){
         fragmentManager = getSupportFragmentManager();
         onAirFragment = new OnAirFragment();
