@@ -87,6 +87,9 @@ public interface RetrofitService {
     @PUT("user/change/username/")
     Call<JsonObject> putUsername(@Body String username);
 
+    @POST("rest-auth/password/change/")
+    Call<JsonObject> changeUserPassword(@Body NewPassword newPassword);
+
     @HTTP(method = "DELETE", path = "user/recent-searches/", hasBody = true)
     Call<JsonObject> deleteUserRecentSearches(@Body SearchWordInfo search_word);
 }
