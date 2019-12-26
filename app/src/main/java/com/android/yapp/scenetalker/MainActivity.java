@@ -158,7 +158,10 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
                 }
                 else {
                     titleText = best_drama_title;
-                    secondTitleText =  titleText + "이 방영 중 이에요!";
+                    if(titleText.length() >= 8 ){
+                        titleText = titleText.substring(0,8).trim() + "...";
+                    }
+                    secondTitleText =  titleText + "이(가) 방영 중 이에요!";
                 }
                 SpannableStringBuilder ssb = new SpannableStringBuilder(secondTitleText);
                 ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 0, titleText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
