@@ -30,12 +30,25 @@ public class Chattingroom_Exit_Dialog {
 
 
 
-        final Button notify_exit_button = dlg.findViewById(R.id.exit_dilaog_button);
-        notify_exit_button.setOnClickListener(new View.OnClickListener() {
+        final Button notify_exit_button_yes= dlg.findViewById(R.id.exit_dilaog_button_yes);
+        notify_exit_button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dlg.dismiss();
                 ((Activity) context).finish();
+
+
+//                Intent intent = new Intent(context,FeedPage.class);
+//                context.startActivity(intent);
+                //피드바로가기
+            }
+        });
+
+        final Button notify_exit_button_no = dlg.findViewById(R.id.exit_dilaog_button_no);
+        notify_exit_button_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dlg.dismiss();
 
 
 //                Intent intent = new Intent(context,FeedPage.class);
