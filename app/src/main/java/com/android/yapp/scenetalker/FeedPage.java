@@ -101,6 +101,8 @@ public class FeedPage extends AppCompatActivity {
 
         init();
         getfeed();
+
+
     }
 
     @Override

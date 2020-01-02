@@ -34,6 +34,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +63,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     int potato_count,cider_count;
     String episode_num;
     PagerAdapter2 pagerAdapter2;
+    ItemViewHolder itemViewHolder;
     public FeedAdapter(Context context,int resourceId,List<GetPostInfo>dataList,FragmentManager fm){
         this.context=context;
         this.resourceId=resourceId;
@@ -85,15 +91,16 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof HeaderViewHolder) {
 
         } else {
             fPagerAdapter pagerAdapter=new fPagerAdapter(context);
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.onBind(dataList.get(position - 1),position-1);
         }
+        holder.getItemId();
 
     }
 
@@ -110,7 +117,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return TYPE_ITEM;
     }
 
-    public void itemReload(String feed_id,String post_id,final int position){
+    public void itemReload(final String feed_id, String post_id, final int position){
         Call<JsonObject> call = NetRetrofit.getInstance().getOneFeed(feed_id,post_id);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -133,6 +140,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 call.cancel();
             }
         });
+
     }
 
     public void setDataListBitmap(int position, Bitmap bitmap) {
@@ -158,7 +166,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             feed_img = itemView.findViewById(R.id.feed_image);
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
-
         }
 
         void onBind(final GetPostInfo dataList, final int position){
@@ -167,6 +174,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             feed_time.setText(dataList.getUpdated_at());
             comment_num.setText(String.valueOf(dataList.getComment_counts()));
             heart_num.setText(String.valueOf(dataList.getLike_counts()));
+
             if(dataList.getImage() != null){
                 if(dataList.getBitmap_image() == null) {
                     Uri uri = Uri.parse(dataList.getImage());
@@ -216,12 +224,16 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context,CommentActivity.class);
+
                     intent.putExtra("feedId",dataList.getFeed());
                     intent.putExtra("postId",dataList.getId());
 
                     context.startActivity(intent);
                 }
             });
+
+
+
         }
 
     }
@@ -240,8 +252,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class PagerAdapter2 extends FragmentPagerAdapter {
-
-
         FeedFragment adapter;
         ArrayList<CountInfo> countitems;
 

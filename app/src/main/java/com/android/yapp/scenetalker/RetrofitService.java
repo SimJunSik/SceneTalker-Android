@@ -95,4 +95,9 @@ public interface RetrofitService {
 
     @HTTP(method = "DELETE", path = "user/recent-searches/", hasBody = true)
     Call<JsonObject> deleteUserRecentSearches(@Body SearchWordInfo search_word);
+
+    @HTTP(method="DELETE",path="feed/{feed_id}/post/{id}/",hasBody = true)
+    Call<JsonObject> deleteFeedPost(@Body FeedInfo feedinfo,@Path("feed_id")String feed_id,@Path("id")int id);
+
+
 }

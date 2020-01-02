@@ -103,6 +103,7 @@
             android:layout_marginStart="130dp"
             android:text="23"
             android:textSize="15dp" />
+
     </RelativeLayout>
     <View
         android:layout_width="match_parent"

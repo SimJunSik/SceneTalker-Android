@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,11 +47,8 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
     //ViewPager fViewPager;
     private FeedPage currentView;
     FeedPage fp=new FeedPage();
-    int page;
-    String nextPage;
-    TextView episode_result,potato_percent,cider_percent;
-    int potato_count,cider_count;
-    String episode_num;
+    static String feedid;
+    int dramaid;
 
     public MyWrittenAdapter(Context context,int resourceId,List<GetPostInfo>dataList){
         this.context=context;
@@ -59,8 +62,8 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder holder;
         View view;
 
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_item_feed, parent, false);
-            holder = new MyWrittenAdapter.ItemViewHolder(view);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_item_feed, parent, false);
+        holder = new MyWrittenAdapter.ItemViewHolder(view);
 
         return holder;
     }
@@ -68,8 +71,10 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.onBind(dataList.get(position),position);
+        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+        itemViewHolder.onBind(dataList.get(position),position);
+
+
     }
 
     @Override
@@ -78,9 +83,32 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-
     public void setDataListBitmap(int position, Bitmap bitmap) {
         this.dataList.get(position).setBitmap_image(bitmap);
+    }
+    public void itemReload(final String feed_id, String post_id, final int position){
+        Call<JsonObject> call = NetRetrofit.getInstance().getOneFeed(feed_id,post_id);
+        call.enqueue(new Callback<JsonObject>() {
+
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Gson gson = new Gson();
+                if(response.body()==null) {
+                    Log.i("삭제 실패",response.errorBody().toString());
+                    return;
+                }
+                Log.i("삭제 완료",response.body().toString());
+                dataList.remove(position);
+                notifyItemRemoved(position);
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("err",t.getMessage());
+                call.cancel();
+            }
+        });
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
@@ -92,6 +120,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageButton feedHeartBtn,feedCommentBtn;
         ImageView feed_img;
         TextView drama_title;
+        Button delete_feed;
 
         public ItemViewHolder(View itemView){
             super(itemView);
@@ -104,7 +133,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
             feed_img = itemView.findViewById(R.id.feed_image);
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
-
+            delete_feed = itemView.findViewById(R.id.feed_delete_button);
         }
 
         void onBind(final GetPostInfo dataList, final int position){
@@ -144,6 +173,58 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                     intent.putExtra("postId",dataList.getId());
 
                     context.startActivity(intent);
+                }
+            });
+            delete_feed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    feedid = dataList.getFeed();
+                    dramaid = Integer.parseInt(dataList.getId());
+
+                    Log.e("피이드으아이디이",feedid);
+                    Log.e("드라마아이이디이",String.valueOf(dramaid));
+
+                    String username = name.getText().toString();
+                    String comment = feed_post.getText().toString();
+                    String comment_time = feed_time.getText().toString();
+                    int comment_numm = Integer.parseInt(comment_num.getText().toString());
+                    int heart_numm = Integer.parseInt(heart_num.getText().toString());
+                    //String image = dataList.getBitmap_image().toString();
+                    String image = "";
+                    FeedInfo feedInfo = new FeedInfo(username,comment,comment_time,comment_numm,heart_numm,image);
+                    Call<JsonObject> call = NetRetrofit.getInstance().deleteFeedPost(feedInfo,feedid,dramaid);
+                    call.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            Gson gson = new Gson();
+                            if(response.body() == null){
+                                return;
+                            }
+
+                            Log.i("코드",""+response.code());
+
+                            Log.i("결과",response.body().toString());
+                            JSONParser parser = new JSONParser();
+                            Object obj = null;
+                            try {
+                                obj = parser.parse(response.body().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            JSONObject jsonObj = (JSONObject) obj;
+
+                            String result = jsonObj.get("result").toString();
+                            if(result.equals("OK")){
+                                itemReload(dataList.getFeed(),dataList.getId(),position);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            Log.e("err",t.getMessage());
+                            call.cancel();
+                        }
+                    });
                 }
             });
         }

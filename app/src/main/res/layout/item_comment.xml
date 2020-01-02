@@ -23,6 +23,14 @@
         android:textSize="15dp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/comment_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        android:layout_marginStart="260dp"
+        />
+
     <TextView
         android:id="@+id/comment"
         android:layout_width="match_parent"
