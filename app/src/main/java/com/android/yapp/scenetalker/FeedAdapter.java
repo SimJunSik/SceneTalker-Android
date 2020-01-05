@@ -232,8 +232,28 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
 
+                    intent.putExtra("feedId", dataList.getFeed());
+                    intent.putExtra("postId", dataList.getId());
 
+                    context.startActivity(intent);
+                }
+            });
+            feed_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", dataList.getFeed());
+                    intent.putExtra("postId", dataList.getId());
+
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
