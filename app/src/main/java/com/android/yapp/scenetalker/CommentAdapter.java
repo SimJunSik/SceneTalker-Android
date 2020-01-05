@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +46,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context context;
 
-    private List<GetPostInfo> dataList;
+    private List<GetCommentInfo> dataList;
 
-    public CommentAdapter(Context context,List<GetPostInfo>dataList){
+    public CommentAdapter(Context context,List<GetCommentInfo>dataList){
         this.context=context;
         this.dataList=dataList;
     }
@@ -57,17 +62,47 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return holder;
     }
 
-    public void addItem(GetPostInfo info){
+    public void addItem(GetCommentInfo info){
         dataList.add(info);
         notifyDataSetChanged();
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        itemViewHolder.onBind(dataList.get(position));
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            itemViewHolder.onBind(dataList.get(position));
+            final GetCommentInfo data = dataList.get(position);
+            Button delete_button = ((ItemViewHolder) holder).delete_button;
 
+            boolean is_mine = data.isIs_mine();
+            if(!is_mine){
+                delete_button.setVisibility(View.INVISIBLE);
+            }
+            delete_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("버튼클릭", data.getId());
+                    Call<JsonObject> service = NetRetrofit.getInstance().deletePostComment(data.getFeed_id(), data.getPost(), data.getId());
+                    service.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            Gson gson = new Gson();
+                            if(response.body() == null){
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                    dataList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, dataList.size());
+                }
+            });
     }
 
     @Override
@@ -79,17 +114,18 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView comment;
+        Button delete_button;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
-
+            delete_button = itemView.findViewById(R.id.comment_delete_button);
         }
 
-        void onBind(final GetPostInfo dataList) {
-            name.setText(dataList.getAuthor_name());
-            comment.setText(dataList.getContent());
+        void onBind(final GetCommentInfo data) {
+            name.setText(data.getAuthor_name());
+            comment.setText(data.getContent());
         }
 
     }

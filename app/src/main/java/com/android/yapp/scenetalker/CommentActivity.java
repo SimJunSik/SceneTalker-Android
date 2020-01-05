@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class CommentActivity extends AppCompatActivity {
     ActivityCommentBinding binding;
     GetPostInfo feed;
-    ArrayList<GetPostInfo> comments;
+    ArrayList<GetCommentInfo> comments;
     String feedId,id;
     CommentAdapter adapter;
 
@@ -146,7 +146,7 @@ public class CommentActivity extends AppCompatActivity {
                 }
                 comments = new ArrayList<>();
                 for(int i=0;i<response.body().size();i++){
-                    GetPostInfo info = gson.fromJson(response.body().get(i),GetPostInfo.class);
+                    GetCommentInfo info = gson.fromJson(response.body().get(i),GetCommentInfo.class);
                     comments.add(info);
                 }
                 adapter = new CommentAdapter(getApplicationContext(),comments);

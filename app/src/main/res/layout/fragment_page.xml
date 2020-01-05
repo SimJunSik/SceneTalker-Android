@@ -30,18 +30,6 @@
         android:textSize="18dp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="47dp"
-        android:text="평균시청률 1위"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12dp" />
-
     <Button
         android:id="@+id/feed_button"
         android:layout_width="wrap_content"

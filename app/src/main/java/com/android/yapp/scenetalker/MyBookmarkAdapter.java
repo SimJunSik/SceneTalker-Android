@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +31,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>   {
 
     private Context context;
     private int resourceId;
@@ -76,6 +86,7 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Button count;
         Button gotofeed;
         ImageButton bookmark_button;
+        String bookmark;
 
 
         public ItemViewHolder(View itemView){
@@ -88,16 +99,11 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             count = itemView.findViewById(R.id.count);
             gotofeed = itemView.findViewById(R.id.gotofeed);
             bookmark_button=itemView.findViewById(R.id.bookmark_button);
-            bookmark_button = itemView.findViewById(R.id.bookmark_button);
 
 
-            gotofeed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(context,FeedPage.class);
-                    context.startActivity(intent);
-                }
-            });
+
+
+
         }
 
         void onBind(final DramaInfo item, final int position){
@@ -106,10 +112,25 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //image.setImageURI(Uri.parse("file://"+picturepath));
                 Glide.with(context).load(item.getPoster_url()).into(image);
             }
+            final String feedname=item.getTitle();
+            final String episode_num=item.getEpisode();
+            final int drama_id=item.getId();
+            gotofeed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,FeedPage.class);
+                    intent.putExtra("name",feedname);
+                    intent.putExtra("episode",episode_num);
+                    intent.putExtra("id",drama_id);
+
+                    context.startActivity(intent);
+                }
+            });
             production.setText(item.getBroadcasting_station());
             dname.setText(item.getTitle());
             rating.setText(item.getRating()+"%");
             String day = "";
+
             if(item.getBroadcasting_day() != null && item.getBroadcasting_day().size() != 0){
                 StringTokenizer st = new StringTokenizer(item.getBroadcasting_start_time(),":");
                 String time = st.nextToken()+"시 ";
@@ -126,6 +147,55 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }else{
                 bookmark_button.setImageDrawable(context.getResources().getDrawable(R.drawable.bookmark_empty));
             }
+            bookmark_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("북마크", Integer.toString(drama_id));
+                    Call<JsonObject> service = NetRetrofit.getInstance().toggleUserDramaBookmark(Integer.toString(drama_id));
+                    service.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            Gson gson = new Gson();
+                            if(response.message() != null) {
+                                Log.i("에러 결과", response.toString());
+                            }
+                            if(response.body() == null){
+                                return;
+                            }
+                            Log.i("북마크",response.body().toString());
+                            JSONParser parser = new JSONParser();
+                            Object obj = null;
+                            try {
+                                obj = parser.parse(response.body().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            JSONObject jsonObj = (JSONObject) obj;
+
+                            String description;
+                            description = jsonObj.get("description").toString();
+
+                            String result;
+                            result = jsonObj.get("result").toString();
+
+                            Log.i("북마크", result + " " + description);
+                            if(result.equals("OK")){
+                                if(description.equals("add")) {
+                                    bookmark_button.setImageResource(R.drawable.bookmark_full);
+                                }
+                                else if(description.equals("remove")){
+                                    bookmark_button.setImageResource(R.drawable.bookmark_empty);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+            });
         }
 
     }
