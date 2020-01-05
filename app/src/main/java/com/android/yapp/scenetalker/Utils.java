@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -75,5 +76,28 @@ public class Utils {
             }
         }
         return bitmap;
+    }
+
+    public static String getTimeFormat(String time){
+        String[] splited_time_1 = time.split("\\.");
+        String[] splited_time_2 = splited_time_1[0].split("T");
+
+        String yymmdd = splited_time_2[0];
+        String hhmmss = splited_time_2[1];
+
+        String[] splited_yymmdd = yymmdd.split("-");
+        String year = splited_yymmdd[0];
+        String month = splited_yymmdd[1];
+        String day = splited_yymmdd[2];
+
+        String[] splited_hhmmss = hhmmss.split(":");
+        String hour = splited_hhmmss[0];
+        String minute = splited_hhmmss[1];
+        String second = splited_hhmmss[2];
+
+        String merged_time = "";
+        merged_time += year + "년 " + month + "월 " + day + "일 " + hour + "시 " + minute + "분";
+
+        return merged_time;
     }
 }

@@ -70,12 +70,42 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         itemViewHolder.onBind(dataList.get(position),position);
 
-
+//        final String feed_id = dataList.get(position).getFeed();
+//        final String id = dataList.get(position).getId();
+//
+//        Button delete_button = ((ItemViewHolder) holder).delete_feed;
+//
+//        delete_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Call<JsonObject> call = NetRetrofit.getInstance().deleteFeedPost(feed_id,id);
+//                call.enqueue(new Callback<JsonObject>() {
+//                    @Override
+//                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                        Gson gson = new Gson();
+//                        if(response.body()==null) {
+//                            Log.i("삭제 실패",response.errorBody().toString());
+//                            return;
+//                        }
+//                        Log.i("삭제 완료",response.body().toString());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<JsonObject> call, Throwable t) {
+//                        Log.e("err",t.getMessage());
+//                        call.cancel();
+//                    }
+//                });
+//                dataList.remove(position);
+//                notifyItemRemoved(position);
+//                notifyItemRangeChanged(position, dataList.size());
+//            }
+//        });
     }
 
     @Override
@@ -88,28 +118,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.dataList.get(position).setBitmap_image(bitmap);
     }
     public void itemReload(final String feed_id, String post_id, final int position){
-        Call<JsonObject> call = NetRetrofit.getInstance().getOneFeed(feed_id,post_id);
-        call.enqueue(new Callback<JsonObject>() {
 
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Gson gson = new Gson();
-                if(response.body()==null) {
-                    Log.i("삭제 실패",response.errorBody().toString());
-                    return;
-                }
-                Log.i("삭제 완료",response.body().toString());
-                dataList.remove(position);
-                notifyItemRemoved(position);
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e("err",t.getMessage());
-                call.cancel();
-            }
-        });
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
@@ -141,16 +150,16 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         }
 
-        void onBind(final GetPostInfo dataList, final int position){
-            drama_title.setText(dataList.getPost_drama_title());
-            name.setText(dataList.getAuthor_name());
-            feed_post.setText(dataList.getContent());
-            feed_time.setText(dataList.getUpdated_at());
-            comment_num.setText(String.valueOf(dataList.getComment_counts()));
-            heart_num.setText(String.valueOf(dataList.getLike_counts()));
-            if(dataList.getImage() != null){
-                if(dataList.getBitmap_image() == null) {
-                    Uri uri = Uri.parse(dataList.getImage());
+        void onBind(final GetPostInfo data, final int position){
+            drama_title.setText(data.getPost_drama_title());
+            name.setText(data.getAuthor_name());
+            feed_post.setText(data.getContent());
+            feed_time.setText(Utils.getTimeFormat(data.getUpdated_at()));
+            comment_num.setText(String.valueOf(data.getComment_counts()));
+            heart_num.setText(String.valueOf(data.getLike_counts()));
+            if(data.getImage() != null){
+                if(data.getBitmap_image() == null) {
+                    Uri uri = Uri.parse(data.getImage());
                     Glide.with(context).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -159,13 +168,13 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                         }
                     });
                 }else{
-                    Glide.with(context).load(dataList.getBitmap_image()).into(feed_img);
+                    Glide.with(context).load(data.getBitmap_image()).into(feed_img);
                 }
             }
-            Uri uri = Uri.parse(dataList.getUser_profile_img());
+            Uri uri = Uri.parse(data.getUser_profile_img());
 
             Glide.with(context).load(uri).error(R.drawable.default_image).into(profile_img);
-            if (dataList.is_liked_by_me){
+            if (data.is_liked_by_me){
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));
             }else{
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));
@@ -176,8 +185,30 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context,CommentActivity.class);
-                    intent.putExtra("feedId",dataList.getFeed());
-                    intent.putExtra("postId",dataList.getId());
+                    intent.putExtra("feedId",data.getFeed());
+                    intent.putExtra("postId",data.getId());
+
+                    context.startActivity(intent);
+                }
+            });
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", data.getFeed());
+                    intent.putExtra("postId", data.getId());
+
+                    context.startActivity(intent);
+                }
+            });
+            feed_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", data.getFeed());
+                    intent.putExtra("postId", data.getId());
 
                     context.startActivity(intent);
                 }
@@ -185,8 +216,8 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
             delete_feed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    feedid = dataList.getFeed();
-                    dramaid = Integer.parseInt(dataList.getId());
+                    feedid = data.getFeed();
+                    dramaid = Integer.parseInt(data.getId());
 
                     Log.e("피이드으아이디이",feedid);
                     Log.e("드라마아이이디이",String.valueOf(dramaid));
@@ -222,7 +253,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                             String result = jsonObj.get("result").toString();
                             if(result.equals("OK")){
-                                itemReload(dataList.getFeed(),dataList.getId(),position);
+//                                itemReload(dataList.getFeed(),dataList.getId(),position);
                             }
                         }
 
@@ -232,6 +263,10 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                             call.cancel();
                         }
                     });
+
+                    dataList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, dataList.size());
                 }
             });
         }

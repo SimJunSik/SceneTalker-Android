@@ -48,6 +48,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private List<GetCommentInfo> dataList;
 
+    private Button delete_button;
+    // private Button edit_button;
+
     public CommentAdapter(Context context,List<GetCommentInfo>dataList){
         this.context=context;
         this.dataList=dataList;
@@ -73,7 +76,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.onBind(dataList.get(position));
             final GetCommentInfo data = dataList.get(position);
-            Button delete_button = ((ItemViewHolder) holder).delete_button;
+            delete_button = ((ItemViewHolder) holder).delete_button;
+            // edit_button = ((ItemViewHolder) holder).edit_button;
 
             boolean is_mine = data.isIs_mine();
             if(!is_mine){
@@ -82,7 +86,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             delete_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("버튼클릭", data.getId());
+                    Log.i("버튼클릭2222", data.getId());
                     Call<JsonObject> service = NetRetrofit.getInstance().deletePostComment(data.getFeed_id(), data.getPost(), data.getId());
                     service.enqueue(new Callback<JsonObject>() {
                         @Override
@@ -103,6 +107,12 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     notifyItemRangeChanged(position, dataList.size());
                 }
             });
+//            edit_button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
     }
 
     @Override
@@ -115,12 +125,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView name;
         TextView comment;
         Button delete_button;
+        // Button edit_button;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
             delete_button = itemView.findViewById(R.id.comment_delete_button);
+            // edit_button = itemView.findViewById(R.id.comment_edit_button);
         }
 
         void onBind(final GetCommentInfo data) {

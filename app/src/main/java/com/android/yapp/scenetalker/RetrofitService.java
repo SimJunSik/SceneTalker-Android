@@ -67,7 +67,7 @@ public interface RetrofitService {
     Call<JsonArray> getComment(@Path("feed_id")String feed_id,@Path("id")String id);
 
     @POST("feed/{feed_id}/post/{post_id}/comment/")
-    Call<JsonObject> addComment(@Body PostInfo postinfo , @Path("feed_id")String feed_id, @Path("post_id")String post_id);
+    Call<JsonObject> addComment(@Body PostInfo postInfo , @Path("feed_id")String feed_id, @Path("post_id")String post_id);
 
     @GET("user/posts/write/")
     Call<JsonArray> myWrite();

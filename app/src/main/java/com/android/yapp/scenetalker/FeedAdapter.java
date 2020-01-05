@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -174,7 +175,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onBind(final GetPostInfo dataList, final int position){
             name.setText(dataList.getAuthor_name());
             feed_post.setText(dataList.getContent());
-            feed_time.setText(dataList.getUpdated_at());
+            feed_time.setText(Utils.getTimeFormat(dataList.getUpdated_at()));
             comment_num.setText(String.valueOf(dataList.getComment_counts()));
             heart_num.setText(String.valueOf(dataList.getLike_counts()));
 
@@ -234,13 +235,34 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     intent.putExtra("feedId",dataList.getFeed());
                     intent.putExtra("postId",dataList.getId());
+                    intent.putExtra("commentId",dataList.getContent());
 
                     context.startActivity(intent);
                 }
             });
 
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
 
+                    intent.putExtra("feedId", dataList.getFeed());
+                    intent.putExtra("postId", dataList.getId());
 
+                    context.startActivity(intent);
+                }
+            });
+            feed_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", dataList.getFeed());
+                    intent.putExtra("postId", dataList.getId());
+
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }

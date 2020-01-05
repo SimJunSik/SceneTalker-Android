@@ -26,13 +26,23 @@
         android:textSize="15dp"
         android:textStyle="bold" />
 
+<!--    <Button-->
+<!--        android:id="@+id/comment_edit_button"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="260dp"-->
+<!--        android:alpha="100"-->
+<!--        android:background="#00FF0000"-->
+<!--        android:text="수정" />-->
+
     <Button
         android:id="@+id/comment_delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="삭제"
-        android:layout_marginStart="260dp"
-        />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="320dp"
+        android:alpha="100"
+        android:background="#00FF0000"
+        android:text="삭제" />
 
     <TextView
         android:id="@+id/comment"
