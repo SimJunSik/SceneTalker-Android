@@ -1,6 +1,8 @@
 package com.android.yapp.scenetalker;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,12 +34,16 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton mywrite;
     ImageButton mylike;
     ImageButton mybookmark;
+    ImageButton logout;
+    ImageButton withdrawal;
     NicknameDialog nicknameDialog;
     ProfileDialog profileDialog;
     CircleImageView mypage_profile_image;
     String username;
     String user_email;
     String user_profile_image_url;
+    Logout_Dialog logout_dialog;
+    Withdrawal_Dialog withdrawal_dialog;
 
     ImageButton profile_img_change;
 
@@ -64,11 +70,29 @@ public class MyPageActivity extends AppCompatActivity {
         mywrite = findViewById(R.id.mywrite);
         mylike = findViewById(R.id.mylike);
         mybookmark=findViewById(R.id.mybookmark);
-
+        logout=findViewById(R.id.logout);
+        withdrawal=findViewById(R.id.withdrawal);
         nicknameDialog = new NicknameDialog(this);
         profileDialog = new ProfileDialog(this);
-
+        logout_dialog=new Logout_Dialog(this);
+        withdrawal_dialog=new Withdrawal_Dialog(this);
         setUserInfo();
+
+        //로그아웃
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout_dialog.callFunction();
+            }
+        });
+
+        //회원탈퇴
+        withdrawal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                withdrawal_dialog.callFunction();
+            }
+        });
 
         passwordchange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,11 +165,15 @@ public class MyPageActivity extends AppCompatActivity {
 
                 username = jsonObj.get("username").toString();
                 user_email = jsonObj.get("email").toString();
-                user_profile_image_url = jsonObj.get("profile_image").toString();
+                if(jsonObj.get("profile_image") == null){
+                    user_profile_image_url = "";
+                } else {
+                    user_profile_image_url = jsonObj.get("profile_image").toString();
+                }
 
                 mypage_username.setText(username);
                 mypage_email.setText(user_email);
-                Glide.with(context).load(user_profile_image_url).into(mypage_profile_image);
+                Glide.with(context).load(user_profile_image_url).error(R.drawable.default_image).into(mypage_profile_image);
             }
 
             @Override

@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements Switch.OnCheckedChange
                 }
 
                 Log.i("유저 정보", user_profile_image_url);
-                Glide.with(context).load(user_profile_image_url).into(goto_mypage);
+                Glide.with(context).load(user_profile_image_url).error(R.drawable.default_image).into(goto_mypage);
 
                 username = jsonObj.get("username").toString();
                 String title_text = "지금 " + username + "님이 좋아하는";
