@@ -36,6 +36,7 @@ import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,6 +126,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView name;
         TextView comment;
         Button delete_button;
+        CircleImageView profile_img;
         // Button edit_button;
 
         public ItemViewHolder(View itemView) {
@@ -132,12 +134,18 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             name = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
             delete_button = itemView.findViewById(R.id.comment_delete_button);
+            profile_img=itemView.findViewById(R.id.profileImg);
+
             // edit_button = itemView.findViewById(R.id.comment_edit_button);
         }
 
         void onBind(final GetCommentInfo data) {
             name.setText(data.getAuthor_name());
             comment.setText(data.getContent());
+            Uri uri = Uri.parse(data.getUser_profile_image());
+
+            Glide.with(context).load(uri).error(R.drawable.default_image).into(profile_img);
+
         }
 
     }

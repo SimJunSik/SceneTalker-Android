@@ -32,18 +32,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="65dp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/mainprofileImg"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_below="@+id/episode_result"
-                    android:src="@drawable/userimage_potato" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="15dp" />
+
 
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="20dp"
                     android:text="배가수지"
                     android:textSize="15dp"
@@ -68,7 +71,7 @@
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="70dp"
                 />
 
             <ImageView
@@ -76,7 +79,7 @@
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="40dp" />
+                android:layout_marginLeft="70dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -88,7 +91,7 @@
                     android:layout_height="15dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="70dp"
                     android:background="#00ff0000"
                     android:scaleType="fitCenter"
                     android:src="@drawable/heart" />
@@ -99,7 +102,7 @@
                     android:layout_height="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="67dp"
+                    android:layout_marginStart="97dp"
                     android:text="23"
                     android:textSize="15dp" />
 
@@ -110,7 +113,7 @@
                     android:layout_height="15dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="103dp"
+                    android:layout_marginStart="123dp"
                     android:background="#00ff0000"
                     android:scaleType="fitCenter"
                     android:src="@drawable/comment" />
@@ -121,7 +124,7 @@
                     android:layout_height="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="130dp"
+                    android:layout_marginStart="150dp"
                     android:text="23"
                     android:textSize="15dp" />
             </RelativeLayout>
@@ -157,7 +160,7 @@
                 android:id="@+id/commentEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#CCCCCC"
+                android:backgroundTint="#d7d7d7"
                 android:background="@null"
                 android:layout_weight="1"
                 android:hint="댓글을 입력해주세요."

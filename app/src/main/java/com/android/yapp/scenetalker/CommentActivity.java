@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,6 +75,10 @@ public class CommentActivity extends AppCompatActivity {
                 }
                 Log.i("피드",response.body().toString());
                 feed = gson.fromJson(response.body(),GetPostInfo.class);
+                Uri uri1 = Uri.parse(feed.getUser_profile_img());
+                CircleImageView mainprofileimg;
+                mainprofileimg=findViewById(R.id.mainprofileImg);
+                Glide.with(getApplicationContext()).load(uri1).error(R.drawable.default_image).into(mainprofileimg);
 
                 binding.username.setText(feed.getAuthor_name());
                 binding.feedPost.setText(feed.getContent());

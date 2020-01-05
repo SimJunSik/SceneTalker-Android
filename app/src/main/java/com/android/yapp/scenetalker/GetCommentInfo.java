@@ -9,6 +9,17 @@ public class GetCommentInfo {
     String post;
     String author;
     String feed_id;
+    String user_profile_image;
+
+    public String getUser_profile_image() {
+        return user_profile_image;
+    }
+
+    public void setUser_profile_image(String user_profile_image) {
+        this.user_profile_image = user_profile_image;
+    }
+
+
 
     public String getFeed_id() {
         return feed_id;
