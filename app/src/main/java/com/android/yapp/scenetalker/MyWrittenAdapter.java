@@ -30,6 +30,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -130,6 +131,8 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageView feed_img;
         TextView drama_title;
         Button delete_feed;
+        CircleImageView profile_img;
+
 
         public ItemViewHolder(View itemView){
             super(itemView);
@@ -143,6 +146,8 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
             delete_feed = itemView.findViewById(R.id.feed_delete_button);
+            profile_img=itemView.findViewById(R.id.profileImg);
+
         }
 
         void onBind(final GetPostInfo data, final int position){
@@ -166,7 +171,9 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                     Glide.with(context).load(data.getBitmap_image()).into(feed_img);
                 }
             }
+            Uri uri = Uri.parse(data.getUser_profile_img());
 
+            Glide.with(context).load(uri).error(R.drawable.default_image).into(profile_img);
             if (data.is_liked_by_me){
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));
             }else{

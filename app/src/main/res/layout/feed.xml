@@ -68,5 +68,5 @@ android:layout_height="match_parent">
     app:fabSize="mini"
     android:backgroundTint="#FF4764"
     android:scaleType="center"
-    android:src="@drawable/edit" />
+    android:src="@drawable/newwrite" />
 </RelativeLayout>
