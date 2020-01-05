@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
@@ -26,18 +27,12 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/image"
-                android:layout_width="57dp"
+                android:layout_width="81dp"
                 android:layout_height="82dp"
-                android:layout_marginStart="127dp"
-                android:layout_marginTop="34dp"
-                android:layout_marginEnd="127dp"
-                android:layout_weight="0.8"
                 android:src="@drawable/cider2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
 
-                />
+                tools:layout_editor_absoluteX="103dp"
+                tools:layout_editor_absoluteY="34dp" />
 
             <TextView
                 android:textColor="#161616"

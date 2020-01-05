@@ -6,12 +6,15 @@
     android:layout_marginLeft="20dp"
     android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="35dp"
-        android:layout_height="65dp"
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImg"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_below="@+id/episode_result"
-        android:id="@+id/profile"
-        android:src="@drawable/userimage_potato" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/username"
@@ -35,13 +38,13 @@
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_below="@id/username"
-        android:layout_alignLeft="@id/profile"
+        android:layout_alignLeft="@id/profileImg"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="10dp"
         android:text="코멘트 코멘트 코멘트 코멘트"
-        android:textSize="13dp"/>
+        android:textSize="13dp" />
 
     <View
         android:layout_width="match_parent"
@@ -50,6 +53,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/comment"
-        android:background="@color/gray"/>
+        android:background="#f4f4f4"/>
 
 </RelativeLayout>

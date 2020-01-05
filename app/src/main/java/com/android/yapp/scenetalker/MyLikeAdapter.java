@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
 
@@ -84,6 +85,8 @@ public class MyLikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageButton feedHeartBtn,feedCommentBtn;
         ImageView feed_img;
         TextView drama_title;
+        CircleImageView profile_img;
+
 
         public ItemViewHolder(View itemView){
             super(itemView);
@@ -96,6 +99,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             feed_img = itemView.findViewById(R.id.feed_image);
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
+            profile_img=itemView.findViewById(R.id.profileImg);
 
         }
 
@@ -120,6 +124,9 @@ public class MyLikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     Glide.with(context).load(dataList.getBitmap_image()).into(feed_img);
                 }
             }
+            Uri uri = Uri.parse(dataList.getUser_profile_img());
+
+            Glide.with(context).load(uri).error(R.drawable.default_image).into(profile_img);
 
             if (dataList.is_liked_by_me){
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));

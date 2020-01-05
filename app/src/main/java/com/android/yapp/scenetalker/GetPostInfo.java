@@ -26,6 +26,17 @@ public class GetPostInfo {
     int comment_counts;
     boolean is_mine;
     boolean is_liked_by_me;
+    String user_profile_image;
+
+
+    public String getUser_profile_img() {
+        return user_profile_image;
+    }
+
+    public void setUser_profile_img(String user_profile_image) {
+        this.user_profile_image = user_profile_image;
+    }
+
 
 
     public String getPost_drama_title() {

@@ -39,6 +39,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -155,6 +156,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView heart_num;
         ImageButton feedHeartBtn,feedCommentBtn;
         ImageView feed_img;
+        CircleImageView profile_img;
 
         public ItemViewHolder(View itemView){
             super(itemView);
@@ -166,6 +168,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             feed_img = itemView.findViewById(R.id.feed_image);
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
+            profile_img=itemView.findViewById(R.id.profileImg);
         }
 
         void onBind(final GetPostInfo dataList, final int position){
@@ -189,6 +192,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     Glide.with(context).load(dataList.getBitmap_image()).into(feed_img);
                 }
             }
+
+            Uri uri = Uri.parse(dataList.getUser_profile_img());
+
+            Glide.with(context).load(uri).error(R.drawable.default_image).into(profile_img);
 
             if (dataList.is_liked_by_me){
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));
@@ -246,7 +253,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             fViewPager=headerView.findViewById(R.id.fviewPager);
             pagerAdapter2=new PagerAdapter2(fm);
             fViewPager.setClipToPadding(false);
-            fViewPager.setPadding(30,0,30,0);
+            fViewPager.setPadding(60,0,20,0);
             fViewPager.setAdapter(pagerAdapter2);
         }
     }
@@ -286,7 +293,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public float getPageWidth (int position) {
-            return 0.85f;
+            return 0.9f;
         }
     }
 
