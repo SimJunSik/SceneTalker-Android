@@ -26,8 +26,9 @@ public class MyWrittenActivity extends AppCompatActivity {
     ImageButton close;
     private RecyclerView recyclerView=null;
     private MyWrittenAdapter feedAdapter=null;
-    private List<GetPostInfo> dataList=null;
-
+    static public List<GetPostInfo> dataList=null;
+    static public ArrayList<GetPostInfo> posts = null;
+    static public int num;
     //private List<FeedInfo> dataList=null;
     MyWritten_Fragment myWritten_fragment;
     MyWritten_Nothing_Fragment myWritten_nothing_fragment;
@@ -43,6 +44,10 @@ public class MyWrittenActivity extends AppCompatActivity {
         myWritten_fragment = new MyWritten_Fragment();
         myWritten_nothing_fragment = new MyWritten_Nothing_Fragment();
 
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.myfeed_fragment_place, myWritten_nothing_fragment).commit();
+
         init();
         getfeed();
         setRecyclerView();
@@ -55,17 +60,7 @@ public class MyWrittenActivity extends AppCompatActivity {
 
             }
         });
-        if (dataList.size()==0){
-            FragmentManager fragmentManager= getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.myfeed_fragment_place, myWritten_nothing_fragment).commit();
-        }
 
-//        else{
-//            FragmentManager fragmentManager= getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.myfeed_fragment_place, myWritten_fragment).commit();
-//        }
     }
 
     private void init(){
@@ -91,18 +86,26 @@ public class MyWrittenActivity extends AppCompatActivity {
                 JsonArray array = response.body().getAsJsonArray();
                 Log.i("피드",response.body().toString());
 
-                ArrayList<GetPostInfo> posts=new ArrayList<>();
+                posts=new ArrayList<>();
                 for(int i=0;i<array.size();i++){
                     GetPostInfo info = gson.fromJson(array.get(i),GetPostInfo.class);
 
                     if(info != null){
                         posts.add(info);
                         dataList.add(info);
+
+
+
+                            FragmentManager fragmentManager= getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.remove(myWritten_nothing_fragment);
+                        fragmentTransaction.replace(R.id.myfeed_fragment_place,myWritten_fragment).commit();
+
+                        feedAdapter.notifyDataSetChanged();
                     }
-
                 }
-                setRecyclerView();
 
+                setRecyclerView();
             }
 
             @Override

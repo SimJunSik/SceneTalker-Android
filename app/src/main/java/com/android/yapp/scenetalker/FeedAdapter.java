@@ -227,6 +227,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     intent.putExtra("feedId",dataList.getFeed());
                     intent.putExtra("postId",dataList.getId());
+                    intent.putExtra("commentId",dataList.getContent());
 
                     context.startActivity(intent);
                 }
