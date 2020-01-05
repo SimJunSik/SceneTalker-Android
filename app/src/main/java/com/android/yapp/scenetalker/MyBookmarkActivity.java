@@ -35,6 +35,10 @@ public class MyBookmarkActivity  extends AppCompatActivity {
         myBookmark_fragment = new MyBookmark_fragment();
         MyBookmark_Nothing_Fragment = new MyBookmark_Nothing_Fragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.mybookmark_fragment_place, MyBookmark_Nothing_Fragment).commit();
+
         init();
         getbookmark();
         setRecyclerView();
@@ -47,11 +51,6 @@ public class MyBookmarkActivity  extends AppCompatActivity {
 
             }
         });
-        if (dataList.size()==0){
-            FragmentManager fragmentManager= getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mybookmark_fragment_place, MyBookmark_Nothing_Fragment).commit();
-        }
 
     }
 
@@ -84,6 +83,13 @@ public class MyBookmarkActivity  extends AppCompatActivity {
                     if(info != null){
                         posts.add(info);
                         dataList.add(info);
+
+                        FragmentManager fragmentManager= getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.remove(MyBookmark_Nothing_Fragment);
+                        fragmentTransaction.replace(R.id.mybookmark_fragment_place,myBookmark_fragment).commit();
+
+                        bookmarkAdapter.notifyDataSetChanged();
                     }
 
                 }
