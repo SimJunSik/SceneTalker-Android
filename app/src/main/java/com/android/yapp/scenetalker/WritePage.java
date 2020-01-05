@@ -56,6 +56,7 @@ public class WritePage extends AppCompatActivity {
     ImageButton image_btn;
     ImageView write_imageView;
     Button finish;
+    ImageButton cancel;
 
     String[] permission_list = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -74,7 +75,7 @@ public class WritePage extends AppCompatActivity {
 
         String drama_title = intent.getExtras().getString("name");
         dramaId = intent.getIntExtra("dramaId",-1);
-
+        cancel=findViewById(R.id.cancel_btn);
         finish = (Button) findViewById(R.id.finish_btn);
         image_btn = (ImageButton) findViewById(R.id.image_btn);
         write_ed = (EditText) findViewById(R.id.feed_write_et);
@@ -88,6 +89,12 @@ public class WritePage extends AppCompatActivity {
                 intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

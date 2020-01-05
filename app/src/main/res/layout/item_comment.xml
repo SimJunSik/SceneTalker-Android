@@ -20,7 +20,7 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:text="배가수지"
         android:textSize="15dp"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
         android:layout_alignLeft="@id/profileImg"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="10dp"
         android:text="코멘트 코멘트 코멘트 코멘트"
@@ -61,8 +61,8 @@
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@id/comment"
-        android:background="#f4f4f4"/>
+        android:background="#d7d7d7"/>
 
 </RelativeLayout>

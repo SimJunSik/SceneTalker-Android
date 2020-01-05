@@ -18,6 +18,7 @@ import com.bumptech.glide.request.transition.Transition;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,7 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
         TextView heart_num;
         ImageButton feedHeartBtn,feedCommentBtn;
         ImageView feed_img;
+        CircleImageView profileimg;
        // TextView drama_title;
 
         public ItemViewHolder(View itemView){
@@ -88,7 +90,7 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
             feed_img = itemView.findViewById(R.id.feed_image);
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
-
+            profileimg=itemView.findViewById(R.id.profileImg);
 
         }
 
@@ -113,6 +115,9 @@ public class Fragment_Search2_Adapter extends RecyclerView.Adapter<RecyclerView.
                     Glide.with(context).load(dataList.getBitmap_image()).into(feed_img);
                 }
             }
+            Uri uri = Uri.parse(dataList.getUser_profile_img());
+
+            Glide.with(context).load(uri).error(R.drawable.default_image).into(profileimg);
 
             if (dataList.is_liked_by_me){
                 feedHeartBtn.setImageDrawable(context.getResources().getDrawable(R.drawable.full_heart));

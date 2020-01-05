@@ -22,13 +22,14 @@
         <ImageButton
             android:layout_width="11dp"
             android:layout_height="18.5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/back_btn"
             android:id="@+id/signup_back_btn"
             android:onClick="onClickBack"
 
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/signup_first_title"
             android:layout_width="208dp"
@@ -36,6 +37,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="44dp"
             android:layout_marginRight="115dp"
+            android:layout_marginBottom="8dp"
             android:text="새로 오신걸 환영해요:)"
             android:textColor="@color/red"
             android:textSize="20sp"
@@ -48,16 +50,16 @@
             android:id="@+id/signup_second_title"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="85dp"
             android:layout_marginRight="150dp"
-            android:textStyle="bold"
             android:text="좋아하는 드라마와 관련된 사진을 등록해보세요!"
             android:textColor="#636363"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/first_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
