@@ -184,6 +184,28 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                     context.startActivity(intent);
                 }
             });
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", data.getFeed());
+                    intent.putExtra("postId", data.getId());
+
+                    context.startActivity(intent);
+                }
+            });
+            feed_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,CommentActivity.class);
+
+                    intent.putExtra("feedId", data.getFeed());
+                    intent.putExtra("postId", data.getId());
+
+                    context.startActivity(intent);
+                }
+            });
             delete_feed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
