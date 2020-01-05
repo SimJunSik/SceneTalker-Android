@@ -36,9 +36,13 @@ public class MyLikeActivity extends AppCompatActivity {
         myLike_fragment = new MyLike_Fragment();
         myLike_nothing_fragment = new MyLike_Nothing_Fragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.myfeed_like_fragment_place, myLike_nothing_fragment).commit();
+
         init();
-        getfeed();
         setRecyclerView();
+        getfeed();
 
         close=findViewById(R.id.back_btn);
         close.setOnClickListener(new View.OnClickListener() {
@@ -48,11 +52,7 @@ public class MyLikeActivity extends AppCompatActivity {
 
             }
         });
-        if (dataList.size()==0){
-            FragmentManager fragmentManager= getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.myfeed_like_fragment_place, myLike_nothing_fragment).commit();
-        }
+
 
     }
 
@@ -85,6 +85,13 @@ public class MyLikeActivity extends AppCompatActivity {
                     if(info != null){
                         posts.add(info);
                         dataList.add(info);
+
+                        FragmentManager fragmentManager= getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.remove(myLike_nothing_fragment);
+                        fragmentTransaction.replace(R.id.myfeed_like_fragment_place,myLike_fragment).commit();
+
+                        feedAdapter.notifyDataSetChanged();
                     }
 
                 }
