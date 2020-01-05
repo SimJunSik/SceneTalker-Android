@@ -1,13 +1,22 @@
 package com.android.yapp.scenetalker;
 
 public class GetCommentInfo {
-    int comment_id;
+    String id;
     boolean is_mine;
     String author_name;
-    String drama_content;
+    String content;
     String create_at;
-    String post_id;
+    String post;
     String author;
+    String feed_id;
+
+    public String getFeed_id() {
+        return feed_id;
+    }
+
+    public void setFeed_id(String feed_id) {
+        this.feed_id = feed_id;
+    }
 
     public boolean isIs_mine() {
         return is_mine;
@@ -25,12 +34,12 @@ public class GetCommentInfo {
         this.author_name = author_name;
     }
 
-    public String getDrama_content() {
-        return drama_content;
+    public String getContent() {
+        return content;
     }
 
-    public void setDrama_content(String drama_content) {
-        this.drama_content = drama_content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCreate_at() {
@@ -41,12 +50,12 @@ public class GetCommentInfo {
         this.create_at = create_at;
     }
 
-    public String getPost_id() {
-        return post_id;
+    public String getPost() {
+        return post;
     }
 
-    public void setPost_id(String post_id) {
-        this.post_id = post_id;
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public String getAuthor() {
@@ -57,11 +66,11 @@ public class GetCommentInfo {
         this.author = author;
     }
 
-    public int getComment_id() {
-        return comment_id;
+    public String getId() {
+        return id;
     }
 
-    public void setComment_id(int comment_id) {
-        this.comment_id = comment_id;
+    public void setId(String id) {
+        this.id = id;
     }
 }

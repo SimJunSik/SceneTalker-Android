@@ -99,5 +99,6 @@ public interface RetrofitService {
     @HTTP(method="DELETE",path="feed/{feed_id}/post/{id}/",hasBody = true)
     Call<JsonObject> deleteFeedPost(@Body FeedInfo feedinfo,@Path("feed_id")String feed_id,@Path("id")int id);
 
-
+    @HTTP(method="DELETE",path="feed/{feed_id}/post/{post_id}/comment/{id}/", hasBody = false)
+    Call<JsonObject> deletePostComment(@Path("feed_id")String feed_id,@Path("post_id")String post_id,@Path("id")String id);
 }
