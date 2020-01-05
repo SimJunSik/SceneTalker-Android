@@ -1,15 +1,22 @@
 package com.android.yapp.scenetalker;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -20,12 +27,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyPageActivity extends AppCompatActivity {
+    private final int GET_GALLERY_IMAGE = 1;
+
     TextView mypage_username ;
     TextView mypage_email;
     ImageButton mypageback;
@@ -112,7 +130,11 @@ public class MyPageActivity extends AppCompatActivity {
         profile_img_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                profileDialog.callFunction();
+//                profileDialog.callFunction();
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
         mywrite.setOnClickListener(new View.OnClickListener() {
@@ -181,5 +203,61 @@ public class MyPageActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri selectedImageUri = data.getData();
+            Log.i("이미지", selectedImageUri.toString());
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Call<JsonObject> service = null;
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "temporary_file2.jpg");
+            try {
+                FileOutputStream fo = new FileOutputStream(file);
+                fo.write(bytes.toByteArray());
+                fo.flush();
+                fo.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"),file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file",file.getName(),fileReqBody);
+            service = NetRetrofit.getInstance().changeUserProfileImage(part);
+
+            service.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Gson gson = new Gson();
+                    if (response.message() != null) {
+                        Log.i("에러 결과", response.toString());
+                    }
+                    if (response.body() == null) {
+                        return;
+                    }
+                    Log.i("프로필", response.body().toString());
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+
+            Glide.with(context).load(selectedImageUri).error(R.drawable.default_image).into(mypage_profile_image);
+        }
     }
 }
