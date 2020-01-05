@@ -77,7 +77,8 @@ public class CommentActivity extends AppCompatActivity {
 
                 binding.username.setText(feed.getAuthor_name());
                 binding.feedPost.setText(feed.getContent());
-                binding.feedTime.setText(feed.getUpdated_at());
+                String merged_time =  Utils.getTimeFormat(feed.getUpdated_at());
+                binding.feedTime.setText(merged_time);
                 binding.commentNum.setText(String.valueOf(feed.getComment_counts()));
                 binding.heartNum.setText(String.valueOf(feed.getLike_counts()));
                 if(feed.getImage() != null){

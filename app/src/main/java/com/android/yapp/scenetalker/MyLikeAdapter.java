@@ -103,7 +103,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             drama_title.setText(dataList.getPost_drama_title());
             name.setText(dataList.getAuthor_name());
             feed_post.setText(dataList.getContent());
-            feed_time.setText(dataList.getUpdated_at());
+            feed_time.setText( Utils.getTimeFormat(dataList.getUpdated_at()));
             comment_num.setText(String.valueOf(dataList.getComment_counts()));
             heart_num.setText(String.valueOf(dataList.getLike_counts()));
             if(dataList.getImage() != null){

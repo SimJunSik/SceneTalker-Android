@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -171,7 +172,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onBind(final GetPostInfo dataList, final int position){
             name.setText(dataList.getAuthor_name());
             feed_post.setText(dataList.getContent());
-            feed_time.setText(dataList.getUpdated_at());
+            feed_time.setText(Utils.getTimeFormat(dataList.getUpdated_at()));
             comment_num.setText(String.valueOf(dataList.getComment_counts()));
             heart_num.setText(String.valueOf(dataList.getLike_counts()));
 

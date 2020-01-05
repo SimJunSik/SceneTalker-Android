@@ -149,7 +149,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
             drama_title.setText(data.getPost_drama_title());
             name.setText(data.getAuthor_name());
             feed_post.setText(data.getContent());
-            feed_time.setText(data.getUpdated_at());
+            feed_time.setText(Utils.getTimeFormat(data.getUpdated_at()));
             comment_num.setText(String.valueOf(data.getComment_counts()));
             heart_num.setText(String.valueOf(data.getLike_counts()));
             if(data.getImage() != null){
