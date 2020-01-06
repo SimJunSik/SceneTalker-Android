@@ -23,7 +23,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#4C4C4C"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/nanumsquare_aceb" />
 
         <ImageButton
             android:id="@+id/closebtn"

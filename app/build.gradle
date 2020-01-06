@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.android.yapp.scenetalker"
+        applicationId "com.scenetalker.yapp.scenetalker"
         minSdkVersion 27
         targetSdkVersion 28
         versionCode 1

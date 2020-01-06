@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"
             android:text="배가수지"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/nanumsquare_aceb" />
 
         <TextView
             android:id="@+id/feed_time"

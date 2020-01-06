@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:textSize="15dp"
-        android:textStyle="bold"
+        android:fontFamily="@font/nanumsquare_aceb"
         android:padding="10dp"
         android:layout_marginHorizontal="5dp"
         android:text="배가본드" />
@@ -52,7 +52,7 @@
                 android:layout_marginTop="20dp"
                 android:text="배가수지"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/nanumsquare_aceb" />
 
             <TextView
                 android:id="@+id/feed_time"

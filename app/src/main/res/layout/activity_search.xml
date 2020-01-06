@@ -51,7 +51,7 @@
         android:id="@+id/fragment_place"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.android.yapp.scenetalker.Fragment_Search2"
+        android:name="com.scenetalker.yapp.scenetalker.Fragment_Search2"
         tools:layout="@layout/fragment_search2" />
 
 </LinearLayout>

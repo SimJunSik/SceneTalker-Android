@@ -40,7 +40,7 @@
         android:id="@+id/mybookmark_fragment_place"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.android.yapp.scenetalker.MyLike_Fragment"
+        android:name="com.scenetalker.yapp.scenetalker.MyLike_Fragment"
         tools:layout="@layout/my_bookmark_fragment" />
 
 

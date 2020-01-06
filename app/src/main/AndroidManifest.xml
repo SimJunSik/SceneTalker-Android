@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,33 +22,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FeedPage"/>
-        <activity android:name=".WritePage"/>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.FeedPage"/>
+        <activity android:name="com.scenetalker.yapp.scenetalker.WritePage"/>
+        <activity android:name="com.scenetalker.yapp.scenetalker.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SignUpActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.SignUpActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ChattingActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.ChattingActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SearchActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.SearchActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyPageActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.MyPageActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PasswordChangeActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.PasswordChangeActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PasswordResetActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.PasswordResetActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PasswordChangeEmailActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.PasswordChangeEmailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PasswordFindActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.PasswordFindActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyWrittenActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.MyWrittenActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyLikeActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.MyLikeActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".CommentActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.CommentActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyBookmarkActivity"
+        <activity android:name="com.scenetalker.yapp.scenetalker.MyBookmarkActivity"
             android:screenOrientation="portrait"/>
     </application>
 

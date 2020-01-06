@@ -116,7 +116,7 @@
                 android:layout_marginTop="40dp"
                 android:text="호텔 델루나"
                 android:textColor="#000"
-                android:textStyle="bold"
+                android:fontFamily="@font/nanumsquare_aceb"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,7 +156,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="10dp"
                 android:text="|"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginBottom="66dp"
+                android:layout_marginBottom="72dp"
                 android:text="토일 오후 9시"
                 android:textColor="@color/gray"
                 android:textSize="10dp"

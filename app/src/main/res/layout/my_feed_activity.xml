@@ -40,7 +40,7 @@
         android:id="@+id/myfeed_fragment_place"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.android.yapp.scenetalker.MyWritten_Fragment"
+        android:name="com.scenetalker.yapp.scenetalker.MyWritten_Fragment"
         tools:layout="@layout/my_feed_fragment" />
 
 
