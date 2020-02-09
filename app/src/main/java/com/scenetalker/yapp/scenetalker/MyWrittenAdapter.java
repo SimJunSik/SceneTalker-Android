@@ -36,6 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.scenetalker.yapp.scenetalker.FeedPage.drama_id;
 import static java.lang.Integer.valueOf;
 
 
@@ -76,37 +77,6 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         itemViewHolder.onBind(dataList.get(position),position);
 
-//        final String feed_id = dataList.get(position).getFeed();
-//        final String id = dataList.get(position).getId();
-//
-//        Button delete_button = ((ItemViewHolder) holder).delete_feed;
-//
-//        delete_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Call<JsonObject> call = NetRetrofit.getInstance().deleteFeedPost(feed_id,id);
-//                call.enqueue(new Callback<JsonObject>() {
-//                    @Override
-//                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                        Gson gson = new Gson();
-//                        if(response.body()==null) {
-//                            Log.i("삭제 실패",response.errorBody().toString());
-//                            return;
-//                        }
-//                        Log.i("삭제 완료",response.body().toString());
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<JsonObject> call, Throwable t) {
-//                        Log.e("err",t.getMessage());
-//                        call.cancel();
-//                    }
-//                });
-//                dataList.remove(position);
-//                notifyItemRemoved(position);
-//                notifyItemRangeChanged(position, dataList.size());
-//            }
-//        });
     }
 
     @Override
@@ -131,7 +101,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageButton feedHeartBtn,feedCommentBtn;
         ImageView feed_img;
         TextView drama_title;
-        Button delete_feed;
+        Button delete_feed, update_feed;
         CircleImageView profile_img;
 
 
@@ -147,6 +117,7 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
             feedHeartBtn = itemView.findViewById(R.id.feed_heart_btn);
             feedCommentBtn = itemView.findViewById(R.id.feed_comment_btn);
             delete_feed = itemView.findViewById(R.id.feed_delete_button);
+            update_feed=itemView.findViewById(R.id.feed_update_button);
             profile_img=itemView.findViewById(R.id.profileImg);
 
         }
@@ -270,6 +241,28 @@ public class MyWrittenAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
                     notifyItemRangeChanged(position, dataList.size());
                 }
             });
+
+            update_feed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent=new Intent(context,UpdatePage.class);
+
+                    feedid = data.getFeed();
+                    dramaid = Integer.parseInt(data.getId());
+
+                    intent.putExtra("dramaid",dramaid);
+                    intent.putExtra("feedid",feedid);
+
+                    context.startActivity(intent);
+                    //startActivityForResult(intent, 1);
+
+
+
+                }
+            });
+
+
         }
 
     }
