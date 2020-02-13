@@ -85,7 +85,7 @@ public class FeedPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
-                intent.putExtra("dramaId",drama_id);
+                //intent.putExtra("dramaId",drama_id);
                 startActivity(intent);
             }
         });
@@ -125,7 +125,7 @@ public class FeedPage extends AppCompatActivity {
         recyclerView.setAdapter(feedAdapter);
     }
 
-    private void getfeed(){
+    public void getfeed(){
         Call<JsonArray> call2 = NetRetrofit.getInstance().getFeed(drama_id);
         call2.enqueue(new Callback<JsonArray>() {
             @Override
