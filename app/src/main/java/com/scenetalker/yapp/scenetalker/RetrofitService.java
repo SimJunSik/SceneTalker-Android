@@ -103,4 +103,8 @@ public interface RetrofitService {
     @Multipart
     @PUT("user/profile-image/")
     Call<JsonObject> changeUserProfileImage(@Part MultipartBody.Part file);
+
+    @Multipart
+    @HTTP(method="PATCH",path="feed/{feed_id}/post/{id}/",hasBody = true)
+    Call<JsonObject> updateFeedPostWithImage(@Part MultipartBody.Part image,@Part("content") RequestBody content,@Path("feed_id")String feed_id,@Path("id")int id);
 }

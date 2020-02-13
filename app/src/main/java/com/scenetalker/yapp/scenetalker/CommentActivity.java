@@ -1,11 +1,13 @@
 package com.scenetalker.yapp.scenetalker;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -157,7 +159,7 @@ public class CommentActivity extends AppCompatActivity {
                 }
                 adapter = new CommentAdapter(getApplicationContext(),comments);
                 binding.recylce.setAdapter(adapter);
-                binding.recylce.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL,false));
+                binding.recylce.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL,true));
                 Log.i("코멘트",response.body().toString());
             }
 
@@ -183,6 +185,8 @@ public class CommentActivity extends AppCompatActivity {
                 Log.i("코멘트",response.body().toString());
                 binding.commentEdit.setText("");
                 getComment(feed_id,post_id);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // 키보드 객체 받아오기
+                imm.hideSoftInputFromWindow(binding.commentEdit.getWindowToken(), 0); // 키보드 숨기기
             }
 
             @Override

@@ -93,13 +93,6 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 });
             }
         });
-        pwforget = findViewById(R.id.passwordfind_textview);
-        pwforget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),PasswordFindActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }

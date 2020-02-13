@@ -116,7 +116,8 @@ public class UpdatePage  extends AppCompatActivity {
                     }
                     RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"),file);
                     MultipartBody.Part part = MultipartBody.Part.createFormData("image",file.getName(),fileReqBody);
-                   // service = NetRetrofit.getInstance().writePostWithImage(part, content, dramaId);
+
+                    service = NetRetrofit.getInstance().updateFeedPostWithImage(part, content,feedid, dramaId);
                 }else {
                     service = NetRetrofit.getInstance().updateFeedPost(content,feedid,dramaId);
                 }
