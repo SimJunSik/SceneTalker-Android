@@ -50,6 +50,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.scenetalker.yapp.scenetalker.MyBookmarkActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.scenetalker.yapp.scenetalker.UpdatePage"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

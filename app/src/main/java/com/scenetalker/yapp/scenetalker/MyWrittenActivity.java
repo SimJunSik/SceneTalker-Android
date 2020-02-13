@@ -35,6 +35,13 @@ public class MyWrittenActivity extends AppCompatActivity {
 
     String contents;
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        init();
+        getfeed();
+        setRecyclerView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
