@@ -20,10 +20,10 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.ViewHo
     private int resourceId;
     private List<ChattingInfo> dataList;
 
-    public ChattingAdapter(Context context,int resourceId,List<ChattingInfo>dataList){
-        this.context=context;
-        this.resourceId=resourceId;
-        this.dataList=dataList;
+    public ChattingAdapter(Context context,int resourceId,List<ChattingInfo>dataList) {
+        this.context = context;
+        this.resourceId = resourceId;
+        this.dataList = dataList;
     }
 
     @Override
